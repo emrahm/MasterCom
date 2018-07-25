@@ -18,6 +18,8 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
     [TestFixture]
     public class CaseFilingTests
     {
+        //arrange
+        String caseId = "536092";
         IApiController apiController = null;
         [SetUp]
         public void SetUp()
@@ -47,7 +49,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
             caseDetail.violationCode = "D.2";
             caseDetail.violationDate = "2017-11-13";
             caseDetail.disputeAmount = "200.00";
-            caseDetail.currencyCode = "USD"; 
+            caseDetail.currencyCode = "USD";
             caseDetail.fileAttachment.filename = "test.tif";
             caseDetail.fileAttachment.file = "sample file";
             caseDetail.filedAgainstIca = "004321";
@@ -55,9 +57,49 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
             caseDetail.filingIca = "001234";
             caseDetail.memo = "This is a test memo";
             //act
-            CaseDetailResponse caseNumber = caseFilling.CreateCase(caseDetail);
+            CaseIdRequestResponse caseNumber = caseFilling.CreateCase(caseDetail);
             //assert
             Assert.AreEqual(caseNumber.caseId, "536092");
+        }
+
+        [Test]
+        public void Ent_UpdateCase_GetCaseNumber_ReturnCaseNumber()
+        {
+            //arrange
+            CaseFiling caseFilling = new CaseFiling(apiController);
+            CaseDetailRequest caseDetail = new CaseDetailRequest();
+            caseDetail.fileAttachment.filename = "test.tif";
+            caseDetail.fileAttachment.file = "sample file";
+            caseDetail.memo = "This is a test memo";
+            caseDetail.action = "REJECT";
+            //act
+            CaseIdRequestResponse caseNumber = caseFilling.UpdateCase(caseId, caseDetail);
+            //assert
+            Assert.AreEqual(caseNumber.caseId, "536092");
+        }
+
+        [Test]
+        public void Ent_CaseStatus_RequestStatus_ReturnStatus()
+        {
+            //arrange
+            CaseFiling caseFilling = new CaseFiling(apiController);
+            List<CaseIdRequestResponse> caseIdList = new List<CaseIdRequestResponse>();
+            caseIdList.Add(new CaseIdRequestResponse() { caseId = caseId });
+            //act
+            var result = caseFilling.CaseStatus(caseIdList);
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].caseId, Is.EqualTo(caseId));
+        }
+
+        [Test]
+        public void Ent_RetrieveDocuments_TakeFiles_Get()
+        {
+
+            //act
+            CaseFiling caseFilling = new CaseFiling(apiController);
+            var results = caseFilling.RetrieveDocuments(caseId);
+            //assert
+            Assert.That(results.FileAttachment.filename, Does.Contain(caseId));
         }
     }
 }

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.ModelData
 {
-    public class CaseDetailResponse
+    public class CaseIdRequestResponse
     {
+        /// <summary>
+        /// case id
+        /// </summary>
         public string caseId { get; set; }
     }
 }

@@ -85,8 +85,9 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
         }
 
         [Test]
-        [TestCase("queues", "queue-name=Closed", "queues?queue-name=Closed&Format=JSON")]
-        [TestCase("cases", "", "cases?Format=JSON")]
+        [TestCase("queues", "queue-name=Closed", "queues?queue-name=Closed")]
+        [TestCase("queues", "queue-name=Closed&format=JSON", "queues?queue-name=Closed&format=JSON")]
+        [TestCase("cases", "", "cases")]
         public void GetUrl_String_ReturnUrl(String query, String parameter, String returnValue)
         {
             //arrange

@@ -52,6 +52,16 @@ namespace Clearing.Msc.Business.MasterCom.Utility
             return GetResponse<T>(response);
         }
 
+        public T Update<T>(string restUrl, Dictionary<string, string> parameters, object caseDetail)
+        {
+            Uri url = GetUrl(restUrl, parameters);
+            IRestRequest restyRequest = GetRestRequest(url, Method.PUT);
+            restyRequest.AddJsonBody(caseDetail);
+            _authAuthentication.SignRequest(url, restyRequest);
+            _restClient.BaseUrl = GetBaseUrl(url);
+            IRestResponse response = _restClient.Execute(restyRequest);
+            return GetResponse<T>(response);
+        }
 
         private IRestRequest GetRestRequest(Uri url, Method method)
         {

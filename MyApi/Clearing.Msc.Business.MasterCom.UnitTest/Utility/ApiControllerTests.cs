@@ -113,5 +113,22 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             //assert>
             Assert.That(() => apiController.Get<List<ResponseQueue>>("queues", null), Throws.Exception.Message.Contain("ad89809c-a79a-0e26-cf4a-9a393eff0a41"));
         }
+
+
+        [Test]
+        public void Create_CreateACaseDetail_ReturnCaseDetailResponse()
+        {
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+                .Returns(new RestResponse<CaseIdRequestResponse>
+                {
+                    Content = new CaseIdRequestResponse().ToJson(),
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                });
+
+            //act 
+            var result = apiController.Create<CaseIdRequestResponse>("cases", new CaseDetailRequest());
+            //assert> 
+            Assert.That(result, Is.TypeOf<CaseIdRequestResponse>());
+        }
     }
 }

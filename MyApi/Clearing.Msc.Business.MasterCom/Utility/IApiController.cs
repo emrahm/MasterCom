@@ -7,5 +7,7 @@ namespace Clearing.Msc.Business.MasterCom.Utility
         T Get<T>(string restUrl, Dictionary<string, string> parameterQuery);
 
         T Create<T>(String restUrl, Object fromBody);
+
+        T Update<T>(string restUrl, Dictionary<string, string> parameters, Object caseDetail);
     }
 }

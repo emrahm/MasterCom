@@ -82,8 +82,6 @@ namespace Clearing.Msc.Business.MasterCom.Utility
                 foreach (var item in parameterQuery)
                     AppendToQueryString(url,
                                         String.Format("{0}={1}", item.Key, item.Value));
-
-            AppendToQueryString(url, "Format=JSON");
             return new Uri(url.ToString());
         }
 
