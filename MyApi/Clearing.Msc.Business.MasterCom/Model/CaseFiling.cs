@@ -23,10 +23,9 @@ namespace Clearing.Msc.Business.MasterCom.Model
             _apiController = apiController;
         }
 
-        public int CreateCase(CaseDetail caseDetail)
+        public CaseDetailResponse CreateCase(CaseDetailRequest caseDetail)
         {
-            
-            return 0;
+            return _apiController.Create<CaseDetailResponse>("cases", caseDetail);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
         public void SetUp()
         {
             apiController = new Mock<IApiController>(); 
-            apiController.Setup(f => f.Create<CaseDetail>(It.IsAny<String>(), It.IsAny<Dictionary<String, String>>()))
+            apiController.Setup(f => f.Create<int>(It.IsAny<String>(), It.IsAny<CaseDetailRequest>()))
                          .Returns(caseNumber);
         }
 

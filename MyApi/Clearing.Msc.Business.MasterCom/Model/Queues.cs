@@ -24,13 +24,13 @@ namespace Clearing.Msc.Business.MasterCom.Model
             _apiController = apiController;
         }
 
-        public List<ResponseQueue> GetQueries(String queryName)
+        public List<ResponseQueue> GetQueues(String queueName)
         {
-            if (String.IsNullOrWhiteSpace(queryName))
-                throw new Exception("QueryName can not be null or empty");
+            if (String.IsNullOrWhiteSpace(queueName))
+                throw new Exception("QueueName can not be null or empty");
 
             Dictionary<String, String> parameters = new Dictionary<string,string>();
-            parameters.Add("queue-name", queryName);
+            parameters.Add("queue-name", queueName);
             return _apiController.Get<List<ResponseQueue>>("queues", parameters); 
         }
     }

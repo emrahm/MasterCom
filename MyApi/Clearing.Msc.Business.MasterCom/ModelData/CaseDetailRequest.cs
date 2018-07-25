@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.ModelData
 {
-    public class CaseDetail
+    public class CaseDetailRequest
     {
+        public CaseDetailRequest()
+        {
+            chargebackRefNum = new List<string>();
+            fileAttachment = new FileAttachment();
+        }
+
         public string caseType { get; set; }
         public List<string> chargebackRefNum { get; set; }
         public string customerFilingNumber { get; set; }

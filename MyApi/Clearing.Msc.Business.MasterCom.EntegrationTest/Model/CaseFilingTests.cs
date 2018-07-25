@@ -1,10 +1,15 @@
-﻿using Clearing.Msc.Business.MasterCom.ModelData;
+﻿using Clearing.Msc.Business.MasterCom.Model;
+using Clearing.Msc.Business.MasterCom.ModelData;
+using Clearing.Msc.Business.MasterCom.Repository;
+using Clearing.Msc.Business.MasterCom.Security;
 using Clearing.Msc.Business.MasterCom.Utility;
 using Moq;
 using NUnit.Framework;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,28 +18,46 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
     [TestFixture]
     public class CaseFilingTests
     {
-        Mock<IApiController> apiController;
-        int caseNumber = 12;
-
+        IApiController apiController = null;
         [SetUp]
         public void SetUp()
         {
-            apiController = new Mock<IApiController>(); 
-            apiController.Setup(f => f.Create<CaseDetail>(It.IsAny<String>(), It.IsAny<Dictionary<String, String>>()))
-                         .Returns(caseNumber);
+
+            IMComConfigRepository iMComConfigRepository = new MComConfigRepository();
+            apiController = new ApiController(iMComConfigRepository.GetMComConfig(),
+                                              new OAuthAuthentication(iMComConfigRepository.GetMComConfig(),
+                                                                      new CerteficateReader(),
+                                                                      SecurityProtocolType.Tls12),
+                                              new RestClient());
+
         }
 
-       // {"caseType":"4","chargebackRefNum":["1111423456, 2222123456"],"customerFilingNumber":"5482","violationCode":"D.2","violationDate":"2017-11-13","disputeAmount":"20,.000","currencyCode":"LLL","fileAttachment":{"filename":"test.tif","file":"sample file"},"filedAgainstIca":"004321","filingAs":"A","filingIca":"001234","memo":"This is a test memo"}
+        // {"caseType":"4","chargebackRefNum":["1111423456, 2222123456"],"customerFilingNumber":"5482","violationCode":"D.2","violationDate":"2017-11-13","disputeAmount":"20,.000","currencyCode":"LLL","fileAttachment":{"filename":"test.tif","file":"sample file"},"filedAgainstIca":"004321","filingAs":"A","filingIca":"001234","memo":"This is a test memo"}
 
         [Test]
-        public void CreateCase_GetCaseNumber_ReturnCaseNumber()
+        public void Ent_CreateCase_GetCaseNumber_ReturnCaseNumber()
         {
             //arrange
-
+            CaseFiling caseFilling = new CaseFiling(apiController);
+            CaseDetailRequest caseDetail = new CaseDetailRequest();
+            caseDetail.caseType = "4";
+            caseDetail.chargebackRefNum.Add("1111423456");
+            caseDetail.chargebackRefNum.Add("2222123456");
+            caseDetail.customerFilingNumber = "5482";
+            caseDetail.violationCode = "D.2";
+            caseDetail.violationDate = "2017-11-13";
+            caseDetail.disputeAmount = "200.00";
+            caseDetail.currencyCode = "USD"; 
+            caseDetail.fileAttachment.filename = "test.tif";
+            caseDetail.fileAttachment.file = "sample file";
+            caseDetail.filedAgainstIca = "004321";
+            caseDetail.filingAs = "A";
+            caseDetail.filingIca = "001234";
+            caseDetail.memo = "This is a test memo";
             //act
-
+            CaseDetailResponse caseNumber = caseFilling.CreateCase(caseDetail);
             //assert
-
+            Assert.AreEqual(caseNumber.caseId, "536092");
         }
     }
 }

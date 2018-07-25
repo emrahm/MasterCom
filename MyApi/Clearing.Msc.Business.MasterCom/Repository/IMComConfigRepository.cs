@@ -1,7 +1,8 @@
 ﻿using System;
+
 namespace Clearing.Msc.Business.MasterCom.Repository
 {
-    interface IMComConfigRepository
+    public interface IMComConfigRepository
     {
         IMcomConfig GetMComConfig();
     }

@@ -44,7 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbObjects\MscMcomConfig.cs" />
-    <Compile Include="ModelData\CaseDetail.cs" />
+    <Compile Include="ModelData\CaseDetailRequest.cs" />
+    <Compile Include="ModelData\CaseDetailResponse.cs" />
     <Compile Include="ModelData\FileAttachment.cs" />
     <Compile Include="Model\CaseFiling.cs" />
     <Compile Include="Model\Chargebacks.cs" />

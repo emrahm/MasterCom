@@ -11,6 +11,9 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
     [TestFixture]
     public class UtilTests
     {
+        String baseUrl = "https://sandbox.api.mastercard.com";
+        String urlVersion = "/mastercom/v1/";
+
         [Test]
         public void NormalizeUrl_GetCleanUrl_ReturnUrl()
         {
@@ -81,5 +84,25 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             Assert.AreEqual(result, "QUJDRA==");
         }
 
+        [Test]
+        [TestCase("queues", "queue-name=Closed", "queues?queue-name=Closed&Format=JSON")]
+        [TestCase("cases", "", "cases?Format=JSON")]
+        public void GetUrl_String_ReturnUrl(String query, String parameter, String returnValue)
+        {
+            //arrange
+            Dictionary<String, String> parameters = null;
+            if (!String.IsNullOrWhiteSpace(parameter))
+            {
+                parameters = new Dictionary<string, string>();
+                foreach (var item in parameter.Split('&'))
+                {
+                    parameters.Add(item.Split('=')[0], item.Split('=')[1]);                    
+                }
+            }
+            //act
+            Uri uri = Util.GetUrl(baseUrl, urlVersion, query, parameters);
+            //arrange
+            Assert.That(uri.AbsoluteUri, Does.Contain(returnValue));
+        }
     }
 }

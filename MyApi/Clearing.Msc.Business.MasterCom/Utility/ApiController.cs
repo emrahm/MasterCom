@@ -31,18 +31,35 @@ namespace Clearing.Msc.Business.MasterCom.Utility
 
         public T Get<T>(String restUrl, Dictionary<String, String> parameterQuery)
         {
-            if (parameterQuery == null)
-                parameterQuery = new Dictionary<string, string>();
-            Uri url = new Uri(GetUrl(restUrl, parameterQuery));
-            Uri uri = new Uri(url.Scheme + "://" + url.Host + ":" + (object)url.Port);
-            IRestRequest restyRequest = new RestRequest(url, Method.GET);
+            Uri url = GetUrl(restUrl, parameterQuery);
+            IRestRequest restyRequest = GetRestRequest(url, Method.GET);
+            _authAuthentication.SignRequest(url, restyRequest);
+            _restClient.BaseUrl = GetBaseUrl(url);
+            IRestResponse response = _restClient.Execute(restyRequest);
+            return GetResponse<T>(response);
+        }
+
+
+
+        public T Create<T>(String restUrl, object fromBody)
+        {
+            Uri url = GetUrl(restUrl, null);
+            IRestRequest restyRequest = GetRestRequest(url, Method.POST);
+            restyRequest.AddJsonBody(fromBody);
+            _authAuthentication.SignRequest(url, restyRequest);
+            _restClient.BaseUrl = GetBaseUrl(url);
+            IRestResponse response = _restClient.Execute(restyRequest);
+            return GetResponse<T>(response);
+        }
+
+
+        private IRestRequest GetRestRequest(Uri url, Method method)
+        {
+            IRestRequest restyRequest = new RestRequest(url, method);
             restyRequest.AddHeader("Accept", "application/json");
             restyRequest.AddHeader("Content-Type", "application/json");
             restyRequest.AddHeader("User-Agent", "CSharp-SDK/" + _mcomConfig.UserAgentVersion);
-            _authAuthentication.SignRequest(url, restyRequest);
-            _restClient.BaseUrl = uri;
-            IRestResponse response = _restClient.Execute(restyRequest);
-            return GetResponse<T>(response);
+            return restyRequest;
         }
 
         private T GetResponse<T>(IRestResponse response)
@@ -53,36 +70,40 @@ namespace Clearing.Msc.Business.MasterCom.Utility
                 return deserial.Deserialize<T>(response);
             }
             else
-            {
-                ResponseErrorContent x = deserial.Deserialize<ResponseErrorContent>(response);
-                StringBuilder errorMessages = new StringBuilder();
-                foreach (var item in x.Errors.Error)
-                {
-                    errorMessages.AppendLine(item.Description);
-                }
-                throw new Exception(errorMessages.ToString());
-            }
+                throw ThrowBadRequest(response);
         }
 
-
-        private String GetUrl(String restUrl, Dictionary<String, String> parameterQuery)
+        private Exception ThrowBadRequest(IRestResponse response)
         {
-            String url = _mcomConfig.BaseUrl + _mcomConfig.UrlVersionNumber + restUrl;
-            parameterQuery.Add("Format", "JSON");
-            String queryParameter = "";
-            foreach (var item in parameterQuery)
+            ResponseErrorContent x = null;
+            try
             {
-                queryParameter += String.Format("&{0}={1}", item.Key, item.Value);
+                x = deserial.Deserialize<ResponseErrorContent>(response);
             }
-            url += queryParameter.Substring(1);
-            return url;
+            catch (Exception)
+            {
+                return new Exception(response.Content);
+            }
+
+            StringBuilder errorMessages = new StringBuilder();
+            foreach (var item in x.Errors.Error)
+            {
+                errorMessages.AppendLine(item.Description);
+            }
+            return new Exception(errorMessages.ToString());
         }
 
-
-
-        public object Create<T1>(string p, Dictionary<string, string> dictionary)
+        private Uri GetUrl(string restUrl, Dictionary<string, string> parameterQuery)
         {
-            throw new NotImplementedException();
+            return Util.GetUrl(_mcomConfig.BaseUrl,
+                               _mcomConfig.UrlVersionNumber,
+                               restUrl,
+                               parameterQuery);
+        }
+
+        private Uri GetBaseUrl(Uri uri)
+        {
+            return new Uri(uri.Scheme + "://" + uri.Host + ":" + (object)uri.Port);
         }
     }
 }

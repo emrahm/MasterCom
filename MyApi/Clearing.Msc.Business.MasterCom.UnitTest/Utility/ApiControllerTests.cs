@@ -40,24 +40,6 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
         }
 
         [Test]
-        public void Get_NullBaseUrl_ReturnUriFormatException()
-        {
-            iMcomConfig.BaseUrl = "";
-            //assert
-            Assert.That(() => apiController.Get<ResponseQueue>("", new Dictionary<string, string>()),
-                              Throws.TypeOf<UriFormatException>());
-        }
-
-        [Test]
-        public void Get_NullUrlVersionNumber_ReturnUriFormatException()
-        {
-            iMcomConfig.UrlVersionNumber = "";
-            //assert
-            Assert.That(() => apiController.Get<ResponseQueue>("", new Dictionary<string, string>()),
-                              Throws.TypeOf<UriFormatException>());
-        }
-
-        [Test]
         public void Get_GetResponse_ReturnQueueList()
         {
             //arrange  
@@ -99,6 +81,37 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             //assert>
             Assert.That(() => apiController.Get<List<ResponseQueue>>("queues", null), 
                                                                      Throws.Exception.Message.Contain(errorMessage)); 
+        }
+
+
+        [Test]
+        public void Get_ResponseIsNotResponseErrorContent_ThrowJsonException()
+        {
+            //arrange 
+            String jsonErrorData = @"{  
+                                       ""Errors"":[  
+                                          {  
+                                             ""RequestId"":""ad89809c-a79a-0e26-cf4a-9a393eff0a41"",
+                                             ""Source"":""SERVICE_ERROR"",
+                                             ""ReasonCode"":""SERVICE_FAILED"",
+                                             ""Description"":""Service failed to complete."",
+                                             ""Recoverable"":false,
+                                             ""Details"":[  
+                                                {  
+                                                   ""Name"":""ErrorDetailCode"",
+                                                   ""Value"":""100002""
+                                                }
+                                             ]
+                                          }";
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+                .Returns(new RestResponse<List<ResponseQueue>>
+                {
+                    Content = jsonErrorData,
+                    StatusCode = System.Net.HttpStatusCode.BadRequest,
+                });
+            //act 
+            //assert>
+            Assert.That(() => apiController.Get<List<ResponseQueue>>("queues", null), Throws.Exception.Message.Contain("ad89809c-a79a-0e26-cf4a-9a393eff0a41"));
         }
     }
 }

@@ -6,6 +6,6 @@ namespace Clearing.Msc.Business.MasterCom.Utility
     {
         T Get<T>(string restUrl, Dictionary<string, string> parameterQuery);
 
-        object Create<T1>(string p, Dictionary<string, string> dictionary);
+        T Create<T>(String restUrl, Object fromBody);
     }
 }

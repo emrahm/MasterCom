@@ -68,5 +68,32 @@ namespace Clearing.Msc.Business.MasterCom.Utility
         {
             return Convert.ToBase64String(textBytes);
         }
+
+        public static Uri GetUrl(String baseUrl,
+                                 String urlVersion,
+                                 String restUrl, 
+                                 Dictionary<String, String> parameterQuery)
+        {
+            StringBuilder url = new StringBuilder();
+            url.Append(baseUrl);
+            url.Append(urlVersion);
+            url.Append(restUrl);
+            if (parameterQuery != null)
+                foreach (var item in parameterQuery)
+                    AppendToQueryString(url,
+                                        String.Format("{0}={1}", item.Key, item.Value));
+
+            AppendToQueryString(url, "Format=JSON");
+            return new Uri(url.ToString());
+        }
+
+        private static void AppendToQueryString(StringBuilder s, string stringToAppend)
+        {
+            if (s.ToString().IndexOf("?") == -1)
+                s.Append("?");
+            if (s.ToString().IndexOf("?") != s.Length - 1)
+                s.Append("&");
+            s.Append(stringToAppend);
+        }
     }
 }
