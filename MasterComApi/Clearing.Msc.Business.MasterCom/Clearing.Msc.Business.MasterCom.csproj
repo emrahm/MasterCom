@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{710AB3A4-09AC-4B7C-A933-23DC5B40ECF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Clearing.Msc.Business.MasterCom</RootNamespace>
+    <AssemblyName>Clearing.Msc.Business.MasterCom</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>..\MasterComTest\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbObjects\MscMcomConfig.cs" />
+    <Compile Include="ModelData\AuthorizationSummary.cs" />
+    <Compile Include="ModelData\CaseDetailRequest.cs" />
+    <Compile Include="ModelData\CaseDetailStatus.cs" />
+    <Compile Include="ModelData\CaseFilingResponseList.cs" />
+    <Compile Include="ModelData\CaseIdRequestResponse.cs" />
+    <Compile Include="ModelData\CaseDetailRetrieveDocument.cs" />
+    <Compile Include="ModelData\ChargebackAcknowledgeRequest.cs" />
+    <Compile Include="ModelData\ChargebackFillRequest.cs" />
+    <Compile Include="ModelData\ChargebackRequest.cs" />
+    <Compile Include="ModelData\ChargebackStatusRequest.cs" />
+    <Compile Include="ModelData\ClearingSummary.cs" />
+    <Compile Include="ModelData\ChargebackResponse.cs" />
+    <Compile Include="ModelData\ChargebackAcknowledgeResponse.cs" />
+    <Compile Include="ModelData\ChargebackStatusResponseList.cs" />
+    <Compile Include="ModelData\ChargebackStatusResponse.cs" />
+    <Compile Include="ModelData\FileAttachment.cs" />
+    <Compile Include="ModelData\TransactionAuthorization.cs" />
+    <Compile Include="ModelData\TransactionClearing.cs" />
+    <Compile Include="ModelData\TransactionSearchRequest.cs" />
+    <Compile Include="ModelData\TransactionSearchResponse.cs" />
+    <Compile Include="Model\CaseFiling.cs" />
+    <Compile Include="Model\Chargebacks.cs" />
+    <Compile Include="Model\Claims.cs" />
+    <Compile Include="Model\Fees.cs" />
+    <Compile Include="Model\Fraud.cs" />
+    <Compile Include="ModelData\ResponseErrorContent.cs" />
+    <Compile Include="Model\Queues.cs" />
+    <Compile Include="ModelData\ResponseQueues.cs" />
+    <Compile Include="Model\Retrievals.cs" />
+    <Compile Include="Model\Transactions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IMComConfigRepository.cs" />
+    <Compile Include="Security\CerteficateReader.cs" />
+    <Compile Include="Security\IAuthAuthentication.cs" />
+    <Compile Include="Security\ICerteficateReader.cs" />
+    <Compile Include="Security\OAuthAuthentication.cs" />
+    <Compile Include="Security\OAuthParameters.cs" />
+    <Compile Include="Utility\ApiController.cs" />
+    <Compile Include="Utility\IApiController.cs" />
+    <Compile Include="Repository\IMcomConfig.cs" />
+    <Compile Include="Repository\MComConfigRepository.cs" />
+    <Compile Include="Utility\Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Operation\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
