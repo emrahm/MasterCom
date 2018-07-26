@@ -68,7 +68,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Model\CaseFilingTests.cs" />
+    <Compile Include="Model\ChargebackTests.cs" />
     <Compile Include="Model\QueuesTests.cs" />
+    <Compile Include="Model\TransactionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -71,6 +71,7 @@
     <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="Model\CaseFilingTests.cs" />
     <Compile Include="Model\QueuesTests.cs" />
+    <Compile Include="Model\TransactionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\OAuthAuthenticationTests.cs" />
     <Compile Include="Security\OAuthParametersTests.cs" />

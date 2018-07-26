@@ -44,12 +44,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbObjects\MscMcomConfig.cs" />
+    <Compile Include="ModelData\AuthorizationSummary.cs" />
     <Compile Include="ModelData\CaseDetailRequest.cs" />
     <Compile Include="ModelData\CaseDetailStatus.cs" />
     <Compile Include="ModelData\CaseFilingResponseList.cs" />
     <Compile Include="ModelData\CaseIdRequestResponse.cs" />
     <Compile Include="ModelData\CaseDetailRetrieveDocument.cs" />
+    <Compile Include="ModelData\ChargebackAcknowledgeRequest.cs" />
+    <Compile Include="ModelData\ChargebackFillRequest.cs" />
+    <Compile Include="ModelData\ChargebackRequest.cs" />
+    <Compile Include="ModelData\ChargebackStatusRequest.cs" />
+    <Compile Include="ModelData\ClearingSummary.cs" />
+    <Compile Include="ModelData\ChargebackResponse.cs" />
+    <Compile Include="ModelData\ChargebackAcknowledgeResponse.cs" />
+    <Compile Include="ModelData\ChargebackStatusResponseList.cs" />
+    <Compile Include="ModelData\ChargebackStatusResponse.cs" />
     <Compile Include="ModelData\FileAttachment.cs" />
+    <Compile Include="ModelData\TransactionAuthorization.cs" />
+    <Compile Include="ModelData\TransactionClearing.cs" />
+    <Compile Include="ModelData\TransactionSearchRequest.cs" />
+    <Compile Include="ModelData\TransactionSearchResponse.cs" />
     <Compile Include="Model\CaseFiling.cs" />
     <Compile Include="Model\Chargebacks.cs" />
     <Compile Include="Model\Claims.cs" />
@@ -73,7 +87,9 @@
     <Compile Include="Repository\MComConfigRepository.cs" />
     <Compile Include="Utility\Util.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Operation\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
