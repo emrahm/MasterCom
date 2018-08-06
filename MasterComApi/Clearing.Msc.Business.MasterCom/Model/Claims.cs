@@ -13,7 +13,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
     ///  "/mastercom/v1/claims/{claim-id}", "read" 
     ///  "/mastercom/v1/claims/{claim-id}", "update" 
     /// </summary>
-    public class Claims
+    public class Claims : IClaims
     {
         IApiController _apiController = null;
         public Claims(IApiController apiController)

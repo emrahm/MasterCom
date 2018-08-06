@@ -130,5 +130,21 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             //assert> 
             Assert.That(result, Is.TypeOf<CaseIdRequestResponse>());
         }
+
+        [Test]
+        public void Update_UpdateCaseClaim_ReturnClaimResponse()
+        {
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+                .Returns(new RestResponse<ClaimResponse>
+                {
+                    Content = new ClaimResponse().ToJson(),
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                });
+
+            //act 
+            var result = apiController.Update<ClaimResponse>("cases", null, new CaseDetailRequest());
+            //assert> 
+            Assert.That(result, Is.TypeOf<ClaimResponse>()); 
+        }
     }
 }

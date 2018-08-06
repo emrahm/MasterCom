@@ -16,7 +16,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
      "/mastercom/v1/queues", "list"  queue-name
      "/mastercom/v1/queues/names", "list" 
      */
-    public class Queues 
+    public class Queues : IQueues 
     {
         IApiController _apiController = null;
         public Queues(IApiController apiController)

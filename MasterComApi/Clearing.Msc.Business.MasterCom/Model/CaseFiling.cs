@@ -15,7 +15,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
             "/mastercom/v1/cases/{case-id}", "update"
      
      */
-    public class CaseFiling
+    public class CaseFiling : ICaseFiling
     {
         IApiController _apiController = null;
         public CaseFiling(IApiController apiController)

@@ -12,7 +12,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
     ///  "/mastercom/v1/claims/{claim-id}/fee", "create" 
     /// "/mastercom/v1/claims/{claim-id}/fees/loaddataforfees", "query" 
     /// </summary>
-    public class Fees
+    public class Fees : IFees
     {
         IApiController _apiController = null;
         public Fees(IApiController apiController)

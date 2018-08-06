@@ -13,7 +13,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
         "/mastercom/v1/claims/{claim-id}/transactions/authorization/{transaction-id}", "read"
         "/mastercom/v1/transactions/search", "create"
      */
-    public class Transactions
+    public class Transactions : ITransactions
     {
         IApiController _apiController = null;
         public Transactions(IApiController apiController)

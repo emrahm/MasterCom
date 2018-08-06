@@ -12,7 +12,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
       "/mastercom/v1/claims/{claim-id}/fraud/mastercard", "create" 
       "/mastercom/v1/claims/{claim-id}/fraud/loaddataforfraud", "query" 
      */
-    public class Fraud
+    public class Fraud : IFraud
     {
         private IApiController _apiController;
 

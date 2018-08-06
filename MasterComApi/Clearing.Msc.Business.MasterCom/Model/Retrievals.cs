@@ -16,7 +16,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
         "/mastercom/v1/claims/{claim-id}/retrievalrequests/{request-id}/fulfillments/response", "create"
         "/mastercom/v1/retrievalrequests/status", "update" 
      */
-    public class Retrievals
+    public class Retrievals : IRetrievals
     {
         IApiController _apiController = null;
         public Retrievals(IApiController apiController)

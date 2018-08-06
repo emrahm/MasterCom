@@ -18,7 +18,7 @@ namespace Clearing.Msc.Business.MasterCom.Model
     /// "/mastercom/v1/chargebacks/status", "update"
     /// "/mastercom/v1/claims/{claim-id}/chargebacks/{chargeback-id}", "update"
     /// </summary>
-    public class Chargebacks
+    public class Chargebacks : IChargebacks
     {
         IApiController _apiController = null;
         public Chargebacks(IApiController apiController)
