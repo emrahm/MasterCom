@@ -69,7 +69,11 @@
   <ItemGroup>
     <Compile Include="Model\CaseFilingTests.cs" />
     <Compile Include="Model\ChargebackTests.cs" />
+    <Compile Include="Model\ClaimsTests.cs" />
+    <Compile Include="Model\FeeTests.cs" />
+    <Compile Include="Model\FraudTests.cs" />
     <Compile Include="Model\QueuesTests.cs" />
+    <Compile Include="Model\RetrievalsTests.cs" />
     <Compile Include="Model\TransactionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
