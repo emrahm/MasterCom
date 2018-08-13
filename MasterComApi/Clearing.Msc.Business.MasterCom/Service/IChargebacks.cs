@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Clearing.Msc.Business.MasterCom.Model
 {
-    interface IChargebacks
+    public interface IChargebacks
     {
         List<ChargebackResponse> AcknowledgeReceivedChargebacks(List<ChargebackRequest> chargebackRequestList);
         List<ChargebackStatusResponse> ChargebacksStatus(List<ChargebackRequest> chargebackRequestList);

@@ -3,7 +3,7 @@ using System;
 
 namespace Clearing.Msc.Business.MasterCom.Model
 {
-    interface ITransactions
+    public interface ITransactions
     {
         TransactionAuthorization AuthorizationTran(string claimId, string transactionId);
         TransactionClearing ClearingTran(string claimId, string transactionId);

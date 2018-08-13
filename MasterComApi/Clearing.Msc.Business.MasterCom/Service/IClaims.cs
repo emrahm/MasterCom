@@ -3,7 +3,7 @@ using System;
 
 namespace Clearing.Msc.Business.MasterCom.Model
 {
-    interface IClaims
+    public interface IClaims
     {
         string CreateClaim(ClaimRequest claimRequest);
         ClaimDetail GetClaim(string claimId);

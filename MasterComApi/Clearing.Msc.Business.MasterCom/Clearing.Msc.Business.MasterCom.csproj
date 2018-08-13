@@ -43,7 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbObjects\MscMcomClaim.cs" />
+    <Compile Include="DbObjects\MscMcomPool.cs" />
+    <Compile Include="DbObjects\MscMcomTransactionIdentity.cs" />
     <Compile Include="DbObjects\MscMcomConfig.cs" />
+    <Compile Include="DbObjects\MscMcomRequest.cs" />
+    <Compile Include="DbObjects\MscTransactionData.cs" />
     <Compile Include="ModelData\AuthorizationSummary.cs" />
     <Compile Include="ModelData\CaseDetailRequest.cs" />
     <Compile Include="ModelData\CaseDetailStatus.cs" />
@@ -80,27 +85,30 @@
     <Compile Include="ModelData\TransactionClearing.cs" />
     <Compile Include="ModelData\TransactionSearchRequest.cs" />
     <Compile Include="ModelData\TransactionSearchResponse.cs" />
-    <Compile Include="Model\CaseFiling.cs" />
-    <Compile Include="Model\Chargebacks.cs" />
-    <Compile Include="Model\Claims.cs" />
-    <Compile Include="Model\Fees.cs" />
-    <Compile Include="Model\Fraud.cs" />
+    <Compile Include="Service\CaseFiling.cs" />
+    <Compile Include="Service\Chargebacks.cs" />
+    <Compile Include="Service\Claims.cs" />
+    <Compile Include="Service\Fees.cs" />
+    <Compile Include="Service\Fraud.cs" />
     <Compile Include="ModelData\ResponseErrorContent.cs" />
-    <Compile Include="Model\ICaseFiling.cs" />
-    <Compile Include="Model\IChargebacks.cs" />
-    <Compile Include="Model\IClaims.cs" />
-    <Compile Include="Model\IFees.cs" />
-    <Compile Include="Model\IFraud.cs" />
-    <Compile Include="Model\IQueues.cs" />
-    <Compile Include="Model\IRetrievals.cs" />
-    <Compile Include="Model\ITransactions.cs" />
-    <Compile Include="Model\Queues.cs" />
+    <Compile Include="Service\ICaseFiling.cs" />
+    <Compile Include="Service\IChargebacks.cs" />
+    <Compile Include="Service\IClaims.cs" />
+    <Compile Include="Service\IFees.cs" />
+    <Compile Include="Service\IFraud.cs" />
+    <Compile Include="Service\IQueues.cs" />
+    <Compile Include="Service\IRetrievals.cs" />
+    <Compile Include="Service\ITransactions.cs" />
+    <Compile Include="Service\Queues.cs" />
     <Compile Include="ModelData\ResponseQueues.cs" />
-    <Compile Include="Model\Retrievals.cs" />
-    <Compile Include="Model\Transactions.cs" />
+    <Compile Include="Service\Retrievals.cs" />
+    <Compile Include="Service\Transactions.cs" />
     <Compile Include="Operation\CreateChargeback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IMComConfigRepository.cs" />
+    <Compile Include="Repository\IMscMcomRequestRepository.cs" />
+    <Compile Include="Repository\ITransactionData.cs" />
+    <Compile Include="Repository\MscMcomRequestRepository.cs" />
     <Compile Include="Security\CerteficateReader.cs" />
     <Compile Include="Security\IAuthAuthentication.cs" />
     <Compile Include="Security\ICerteficateReader.cs" />
@@ -110,6 +118,7 @@
     <Compile Include="Utility\IApiController.cs" />
     <Compile Include="Repository\IMcomConfig.cs" />
     <Compile Include="Repository\MComConfigRepository.cs" />
+    <Compile Include="Utility\RestyClient.cs" />
     <Compile Include="Utility\Util.cs" />
   </ItemGroup>
   <ItemGroup />

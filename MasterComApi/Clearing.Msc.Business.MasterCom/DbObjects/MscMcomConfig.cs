@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.DbObjects
 {
-    public class MscMcomConfig : IMcomConfig
+    public class MscMcomConfig 
     {
         public string ConsumerKey { get; set; }
 

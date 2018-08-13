@@ -9,7 +9,7 @@ namespace Clearing.Msc.Business.MasterCom.Repository
 {
     public class MComConfigRepository : IMComConfigRepository 
     {
-        public IMcomConfig GetMComConfig()
+        public MscMcomConfig GetMComConfig()
         {
             //Db connecttion
             var iMComConfig = new MscMcomConfig();

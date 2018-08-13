@@ -1,4 +1,5 @@
-﻿using Clearing.Msc.Business.MasterCom.Model;
+﻿using Clearing.Msc.Business.MasterCom.DbObjects;
+using Clearing.Msc.Business.MasterCom.Model;
 using Clearing.Msc.Business.MasterCom.ModelData;
 using Clearing.Msc.Business.MasterCom.Repository;
 using Clearing.Msc.Business.MasterCom.Security;
@@ -16,11 +17,11 @@ namespace Clearing.Msc.Business.MasterCom.Utility
     public class ApiController : IApiController
     {
         JsonDeserializer deserial = new JsonDeserializer();
-        private readonly IMcomConfig _mcomConfig;
+        private readonly MscMcomConfig _mcomConfig;
         private readonly IAuthAuthentication _authAuthentication;
         private readonly IRestClient _restClient;
 
-        public ApiController(IMcomConfig mcomConfig,
+        public ApiController(MscMcomConfig mcomConfig,
                              IAuthAuthentication authAuthentication,
                              IRestClient iRestClient)
         {
@@ -113,7 +114,7 @@ namespace Clearing.Msc.Business.MasterCom.Utility
 
         private Uri GetBaseUrl(Uri uri)
         {
-            return new Uri(uri.Scheme + "://" + uri.Host + ":" + (object)uri.Port);
+            return new Uri(uri.Scheme + "://" + uri.Host + ":" + uri.Port);
         }
     }
 }

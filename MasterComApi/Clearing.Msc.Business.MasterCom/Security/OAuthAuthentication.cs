@@ -1,4 +1,5 @@
-﻿using Clearing.Msc.Business.MasterCom.Repository;
+﻿using Clearing.Msc.Business.MasterCom.DbObjects;
+using Clearing.Msc.Business.MasterCom.Repository;
 using Clearing.Msc.Business.MasterCom.Utility;
 using RestSharp;
 using System;
@@ -21,7 +22,7 @@ namespace Clearing.Msc.Business.MasterCom.Security
         private static Random random = new Random();
         private const string VALID_CHAR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-        public OAuthAuthentication(IMcomConfig iMcomConfig,
+        public OAuthAuthentication(MscMcomConfig iMcomConfig,
                                    ICerteficateReader certeficateReader,
                                    SecurityProtocolType securityProtocolType)
         {
