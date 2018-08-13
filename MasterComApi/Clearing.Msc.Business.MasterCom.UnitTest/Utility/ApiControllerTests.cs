@@ -19,7 +19,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
     [TestFixture]
     public class ApiControllerTests
     {
-        IMcomConfig iMcomConfig = new MscMcomConfig();
+        MscMcomConfig iMcomConfig = new MscMcomConfig();
         Mock<IAuthAuthentication> iAuthAuthenticationMock = new Mock<IAuthAuthentication>();
         Mock<IRestClient> iRestClientMock = new Mock<IRestClient>();
         ApiController apiController = null;
@@ -81,6 +81,8 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             //assert>
             Assert.That(() => apiController.Get<List<ResponseQueue>>("queues", null), 
                                                                      Throws.Exception.Message.Contain(errorMessage)); 
+
+            //todo: iRestClientMock.Verify verify edilmesi gerekiyor setup edildigi
         }
 
 

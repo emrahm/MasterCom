@@ -23,6 +23,8 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
             apiController = new Mock<IApiController>();
         }
 
+        
+
         // {"caseType":"4","chargebackRefNum":["1111423456, 2222123456"],"customerFilingNumber":"5482","violationCode":"D.2","violationDate":"2017-11-13","disputeAmount":"20,.000","currencyCode":"LLL","fileAttachment":{"filename":"test.tif","file":"sample file"},"filedAgainstIca":"004321","filingAs":"A","filingIca":"001234","memo":"This is a test memo"}
 
         [Test]
