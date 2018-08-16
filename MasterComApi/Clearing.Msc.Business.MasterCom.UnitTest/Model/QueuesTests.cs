@@ -20,7 +20,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
         public void SetUp()
         {
             apiController = new Mock<IApiController>(); 
-            apiController.Setup(f => f.Get<List<ResponseQueue>>(It.IsAny<String>(), It.IsAny<Dictionary<String, String>>()))
+            apiController.Setup(f => f.Get<List<ResponseQueue>>(It.IsAny<long>(), It.IsAny<String>(), It.IsAny<Dictionary<String, String>>()))
                          .Returns(returnList);
         }
 
@@ -30,7 +30,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
             //Act
             Queues queues = new Queues(apiController.Object);
             //Assert
-            Assert.That(() => queues.GetQueues(It.IsAny<String>()), Throws.Exception);
+            Assert.That(() => queues.GetQueues(0, It.IsAny<String>()), Throws.Exception);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
             returnList.Add(new ResponseQueue());
             //Act
             Queues queues = new Queues(apiController.Object);
-            var result = queues.GetQueues("Closed");
+            var result = queues.GetQueues(0, "Closed");
             //Assert
             Assert.That(result.Count, Is.EqualTo(1));
         }

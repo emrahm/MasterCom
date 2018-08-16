@@ -20,9 +20,9 @@ namespace Clearing.Msc.Business.MasterCom.Model
             _apiController = apiController;
         }
 
-        public String CreateFee(String claimId, FeeDetail feeDetail)
+        public String CreateFee(long refKey, String claimId, FeeDetail feeDetail)
         {
-            return _apiController.Create<FeeDetail>(String.Format("claims/{0}/fee", claimId), feeDetail).feeId;
+            return _apiController.Create<FeeDetail>(refKey, String.Format("claims/{0}/fee", claimId), feeDetail).feeId;
         }
     }
 }

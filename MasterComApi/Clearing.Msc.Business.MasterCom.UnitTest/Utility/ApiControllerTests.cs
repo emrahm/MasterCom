@@ -21,7 +21,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
     {
         MscMcomConfig iMcomConfig = new MscMcomConfig();
         Mock<IAuthAuthentication> iAuthAuthenticationMock = new Mock<IAuthAuthentication>();
-        Mock<IRestClient> iRestClientMock = new Mock<IRestClient>();
+        Mock<IRestyClient> iRestClientMock = new Mock<IRestyClient>();
         ApiController apiController = null;
         readonly String[][] parameter = new String[][] { new String[] { "queue-name", "Closed" } };
         [SetUp]
@@ -49,7 +49,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             List<ResponseQueue> responseQueueList = new List<ResponseQueue>();
             responseQueueList.Add(new ResponseQueue());
 
-            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<long>(), It.IsAny<Uri>(), It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse<List<ResponseQueue>>
                 {
                     Content = responseQueueList.ToJson(),
@@ -57,7 +57,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
                 });
 
             //act
-            var result = apiController.Get<List<ResponseQueue>>("queues", parameters);
+            var result = apiController.Get<List<ResponseQueue>>(0, "queues", parameters);
             //assert
             Assert.That(result.Count, Is.EqualTo(1));
         }
@@ -70,7 +70,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
             content.Errors = new Errors() { Error = new List<ResponseError>() };
             content.Errors.Error.Add(new ResponseError() { Description = errorMessage });
 
-            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<long>(), It.IsAny<Uri>(), It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse<List<ResponseQueue>>
                 {
                     Content = content.ToJson(),
@@ -79,7 +79,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
 
             //act 
             //assert>
-            Assert.That(() => apiController.Get<List<ResponseQueue>>("queues", null), 
+            Assert.That(() => apiController.Get<List<ResponseQueue>>(0, "queues", null), 
                                                                      Throws.Exception.Message.Contain(errorMessage)); 
 
             //todo: iRestClientMock.Verify verify edilmesi gerekiyor setup edildigi
@@ -105,7 +105,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
                                                 }
                                              ]
                                           }";
-            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<long>(), It.IsAny<Uri>(), It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse<List<ResponseQueue>>
                 {
                     Content = jsonErrorData,
@@ -113,14 +113,14 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
                 });
             //act 
             //assert>
-            Assert.That(() => apiController.Get<List<ResponseQueue>>("queues", null), Throws.Exception.Message.Contain("ad89809c-a79a-0e26-cf4a-9a393eff0a41"));
+            Assert.That(() => apiController.Get<List<ResponseQueue>>(0, "queues", null), Throws.Exception.Message.Contain("ad89809c-a79a-0e26-cf4a-9a393eff0a41"));
         }
 
 
         [Test]
         public void Create_CreateACaseDetail_ReturnCaseDetailResponse()
         {
-            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<long>(), It.IsAny<Uri>(), It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse<CaseIdRequestResponse>
                 {
                     Content = new CaseIdRequestResponse().ToJson(),
@@ -128,7 +128,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
                 });
 
             //act 
-            var result = apiController.Create<CaseIdRequestResponse>("cases", new CaseDetailRequest());
+            var result = apiController.Create<CaseIdRequestResponse>(0, "cases", new CaseDetailRequest());
             //assert> 
             Assert.That(result, Is.TypeOf<CaseIdRequestResponse>());
         }
@@ -136,7 +136,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
         [Test]
         public void Update_UpdateCaseClaim_ReturnClaimResponse()
         {
-            iRestClientMock.Setup(f => f.Execute(It.IsAny<IRestRequest>()))
+            iRestClientMock.Setup(f => f.Execute(It.IsAny<long>(), It.IsAny<Uri>(), It.IsAny<IRestRequest>()))
                 .Returns(new RestResponse<ClaimResponse>
                 {
                     Content = new ClaimResponse().ToJson(),
@@ -144,7 +144,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Utility
                 });
 
             //act 
-            var result = apiController.Update<ClaimResponse>("cases", null, new CaseDetailRequest());
+            var result = apiController.Update<ClaimResponse>(0, "cases", null, new CaseDetailRequest());
             //assert> 
             Assert.That(result, Is.TypeOf<ClaimResponse>()); 
         }

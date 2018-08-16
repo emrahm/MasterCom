@@ -5,6 +5,6 @@ namespace Clearing.Msc.Business.MasterCom.Model
 {
     interface IFees
     {
-        string CreateFee(string claimId, FeeDetail feeDetail);
+        string CreateFee(long refKey, string claimId, FeeDetail feeDetail);
     }
 }

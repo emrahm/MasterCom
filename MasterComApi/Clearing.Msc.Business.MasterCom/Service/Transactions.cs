@@ -23,9 +23,9 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// <summary>
         /// 
         /// </summary>
-        public TransactionSearchResponse Search(TransactionSearchRequest transactionSearchRequest)
+        public TransactionSearchResponse Search(long refKey, TransactionSearchRequest transactionSearchRequest)
         {
-            return _apiController.Create<TransactionSearchResponse>("transactions/search", transactionSearchRequest);
+            return _apiController.Create<TransactionSearchResponse>(refKey, "transactions/search", transactionSearchRequest);
         }
 
          /// <summary>
@@ -34,14 +34,14 @@ namespace Clearing.Msc.Business.MasterCom.Model
          /// <param name="claimId"></param>
          /// <param name="transactionId"></param>
          /// <returns></returns>
-        public TransactionClearing ClearingTran(String claimId, String transactionId)
+        public TransactionClearing ClearingTran(long refKey, String claimId, String transactionId)
         {
-            return _apiController.Get<TransactionClearing>(String.Format("claims/{0}/transactions/clearing/{1}", claimId, transactionId), null);
+            return _apiController.Get<TransactionClearing>(refKey, String.Format("claims/{0}/transactions/clearing/{1}", claimId, transactionId), null);
         }
 
-        public TransactionAuthorization AuthorizationTran(String claimId, String transactionId)
+        public TransactionAuthorization AuthorizationTran(long refKey, String claimId, String transactionId)
         {
-            return _apiController.Get<TransactionAuthorization>(String.Format("claims/{0}/transactions/authorization/{1}", claimId, transactionId), null);
+            return _apiController.Get<TransactionAuthorization>(refKey, String.Format("claims/{0}/transactions/authorization/{1}", claimId, transactionId), null);
         } 
     }
 }

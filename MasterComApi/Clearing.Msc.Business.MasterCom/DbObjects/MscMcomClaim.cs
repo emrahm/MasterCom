@@ -11,6 +11,7 @@ namespace Clearing.Msc.Business.MasterCom.DbObjects
         public Int64 Guid { get; set; }
         public Int16 Status { get; set; }
         public Int64 LastUpdated { get; set; }
+        public String ClearingTransactionId { get; set; }
         public Int64 ClrKey { get; set; }
         public Int64 AuthKey { get; set; }
         public String ClaimId { get; set; }

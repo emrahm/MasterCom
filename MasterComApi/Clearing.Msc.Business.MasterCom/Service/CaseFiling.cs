@@ -28,9 +28,9 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// </summary>
         /// <param name="caseDetail"></param>
         /// <returns>The case filing id</returns>
-        public CaseIdRequestResponse CreateCase(CaseDetailRequest caseDetail)
+        public CaseIdRequestResponse CreateCase(long refKey, CaseDetailRequest caseDetail)
         {
-            return _apiController.Create<CaseIdRequestResponse>("cases", caseDetail);
+            return _apiController.Create<CaseIdRequestResponse>(refKey, "cases", caseDetail);
         }
         /// <summary>
         ///  updates a Case Filing record 
@@ -38,21 +38,22 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// <param name="caseId">Case Filing Id. max length...9</param>
         /// <param name="caseDetail">Action to be performed on case. The following values are valid - ACCEPT, REJECT, REBUT, ESCALATE, WITHDRAW. Note : ESCALATE is applicable on pre compliance and pre arbitration cases.</param>
         /// <returns>The case filing id</returns>
-        public CaseIdRequestResponse UpdateCase(String caseId, 
+        public CaseIdRequestResponse UpdateCase(long refKey, 
+                                                String caseId, 
                                                 CaseDetailRequest caseDetail)
         {
-            return _apiController.Update<CaseIdRequestResponse>(String.Format("cases/{0}", caseId), null, caseDetail);
+            return _apiController.Update<CaseIdRequestResponse>(refKey, String.Format("cases/{0}", caseId), null, caseDetail);
         }
         /// <summary>
         ///  retrieves the processing status of a case filing image
         /// </summary>
         /// <param name="caseIdList"></param>
         /// <returns>Status of case filing images. Valid responses are COMPLETED, FAILED, PENDING, UNAVAILABLE</returns>
-        public List<CaseFilingResponse> CaseStatus(List<CaseIdRequestResponse> caseIdList)
+        public List<CaseFilingResponse> CaseStatus(long refKey, List<CaseIdRequestResponse> caseIdList)
         {
             CaseDetailStatus caseDetailStatus = new CaseDetailStatus();
             caseDetailStatus.caseFilingList = caseIdList;
-            return _apiController.Update<CaseFilingResponseList>("cases/status", null, caseDetailStatus).caseFilingResponseList;
+            return _apiController.Update<CaseFilingResponseList>(refKey, "cases/status", null, caseDetailStatus).caseFilingResponseList;
         }
         /// <summary>
         ///  retrieves all documentation for a Case Filing record
@@ -61,11 +62,11 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// </summary>
         /// <param name="caseId"></param>
         /// <returns>File converted to a base64 encoded string. File Format is ZIP Note: ZIP file may contain these formats...JPG, TIFF, PDF</returns>
-        public CaseDetailRetrieveDocument RetrieveDocuments(String caseId)
+        public CaseDetailRetrieveDocument RetrieveDocuments(long refKey, String caseId)
         {
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             parameters.Add("format", "ORIGINAL");
-            return _apiController.Get<CaseDetailRetrieveDocument>(String.Format("cases/{0}/documents", caseId), parameters);
+            return _apiController.Get<CaseDetailRetrieveDocument>(refKey, String.Format("cases/{0}/documents", caseId), parameters);
         }
     }
 }

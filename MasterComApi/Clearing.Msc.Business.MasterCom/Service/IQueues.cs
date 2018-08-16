@@ -6,6 +6,6 @@ namespace Clearing.Msc.Business.MasterCom.Model
 {
     interface IQueues
     {
-        List<ResponseQueue> GetQueues(string queueName);
+        List<ResponseQueue> GetQueues(long refKey, string queueName);
     }
 }

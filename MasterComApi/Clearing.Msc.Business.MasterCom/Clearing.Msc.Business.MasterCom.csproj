@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Framework">
+      <HintPath>..\ExtLibs\Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Framework.Util">
+      <HintPath>..\ExtLibs\Framework.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExtLibs\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\MasterComTest\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
     </Reference>
@@ -43,54 +53,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IOperation.cs" />
+    <Compile Include="Business\IOperationFactory.cs" />
+    <Compile Include="Business\OperationFactory.cs" />
     <Compile Include="DbObjects\MscMcomClaim.cs" />
     <Compile Include="DbObjects\MscMcomPool.cs" />
     <Compile Include="DbObjects\MscMcomTransactionIdentity.cs" />
     <Compile Include="DbObjects\MscMcomConfig.cs" />
     <Compile Include="DbObjects\MscMcomRequest.cs" />
     <Compile Include="DbObjects\MscTransactionData.cs" />
-    <Compile Include="ModelData\AuthorizationSummary.cs" />
-    <Compile Include="ModelData\CaseDetailRequest.cs" />
-    <Compile Include="ModelData\CaseDetailStatus.cs" />
-    <Compile Include="ModelData\CaseFilingDetails.cs" />
-    <Compile Include="ModelData\CaseFilingDetailsHistory.cs" />
-    <Compile Include="ModelData\CaseFilingRespHistory.cs" />
-    <Compile Include="ModelData\CaseFilingResponseList.cs" />
-    <Compile Include="ModelData\CaseIdRequestResponse.cs" />
-    <Compile Include="ModelData\CaseDetailRetrieveDocument.cs" />
-    <Compile Include="ModelData\ChargebackAcknowledgeRequest.cs" />
-    <Compile Include="ModelData\ChargebackDetail.cs" />
-    <Compile Include="ModelData\ChargebackFillRequest.cs" />
-    <Compile Include="ModelData\ChargebackRequest.cs" />
-    <Compile Include="ModelData\ChargebackStatusRequest.cs" />
-    <Compile Include="ModelData\ClaimDetail.cs" />
-    <Compile Include="ModelData\ClaimRequest.cs" />
-    <Compile Include="ModelData\ClearingSummary.cs" />
-    <Compile Include="ModelData\ChargebackResponse.cs" />
-    <Compile Include="ModelData\ChargebackAcknowledgeResponse.cs" />
-    <Compile Include="ModelData\ChargebackStatusResponseList.cs" />
-    <Compile Include="ModelData\ChargebackStatusResponse.cs" />
-    <Compile Include="ModelData\ClaimResponse.cs" />
-    <Compile Include="ModelData\ClaimUpdateRequest.cs" />
-    <Compile Include="ModelData\FraudRequest.cs" />
-    <Compile Include="ModelData\FraudResponse.cs" />
-    <Compile Include="ModelData\RetrievalResponseFulfillmentRequest.cs" />
-    <Compile Include="ModelData\FeeDetail.cs" />
-    <Compile Include="ModelData\FileAttachment.cs" />
-    <Compile Include="ModelData\RetrievalCreateRequest.cs" />
-    <Compile Include="ModelData\RetrievalResponse.cs" />
-    <Compile Include="ModelData\RetrievalDetails.cs" />
-    <Compile Include="ModelData\RetrievalFulfillmentRequest.cs" />
-    <Compile Include="ModelData\TransactionAuthorization.cs" />
-    <Compile Include="ModelData\TransactionClearing.cs" />
-    <Compile Include="ModelData\TransactionSearchRequest.cs" />
-    <Compile Include="ModelData\TransactionSearchResponse.cs" />
+    <Compile Include="Model\AuthorizationSummary.cs" />
+    <Compile Include="Model\CaseDetailRequest.cs" />
+    <Compile Include="Model\CaseDetailStatus.cs" />
+    <Compile Include="Model\CaseFilingDetails.cs" />
+    <Compile Include="Model\CaseFilingDetailsHistory.cs" />
+    <Compile Include="Model\CaseFilingRespHistory.cs" />
+    <Compile Include="Model\CaseFilingResponseList.cs" />
+    <Compile Include="Model\CaseIdRequestResponse.cs" />
+    <Compile Include="Model\CaseDetailRetrieveDocument.cs" />
+    <Compile Include="Model\ChargebackAcknowledgeRequest.cs" />
+    <Compile Include="Model\ChargebackDetail.cs" />
+    <Compile Include="Model\ChargebackFillRequest.cs" />
+    <Compile Include="Model\ChargebackRequest.cs" />
+    <Compile Include="Model\ChargebackStatusRequest.cs" />
+    <Compile Include="Model\ClaimDetail.cs" />
+    <Compile Include="Model\ClaimRequest.cs" />
+    <Compile Include="Model\ClearingSummary.cs" />
+    <Compile Include="Model\ChargebackResponse.cs" />
+    <Compile Include="Model\ChargebackAcknowledgeResponse.cs" />
+    <Compile Include="Model\ChargebackStatusResponseList.cs" />
+    <Compile Include="Model\ChargebackStatusResponse.cs" />
+    <Compile Include="Model\ClaimResponse.cs" />
+    <Compile Include="Model\ClaimUpdateRequest.cs" />
+    <Compile Include="Model\FraudRequest.cs" />
+    <Compile Include="Model\FraudResponse.cs" />
+    <Compile Include="Model\RetrievalResponseFulfillmentRequest.cs" />
+    <Compile Include="Model\FeeDetail.cs" />
+    <Compile Include="Model\FileAttachment.cs" />
+    <Compile Include="Model\RetrievalCreateRequest.cs" />
+    <Compile Include="Model\RetrievalResponse.cs" />
+    <Compile Include="Model\RetrievalDetails.cs" />
+    <Compile Include="Model\RetrievalFulfillmentRequest.cs" />
+    <Compile Include="Model\TransactionAuthorization.cs" />
+    <Compile Include="Model\TransactionClearing.cs" />
+    <Compile Include="Model\TransactionSearchRequest.cs" />
+    <Compile Include="Model\TransactionSearchResponse.cs" />
+    <Compile Include="Business\ProcessPool.cs" />
+    <Compile Include="Repository\TransactionRepository.cs" />
     <Compile Include="Service\CaseFiling.cs" />
     <Compile Include="Service\Chargebacks.cs" />
     <Compile Include="Service\Claims.cs" />
     <Compile Include="Service\Fees.cs" />
     <Compile Include="Service\Fraud.cs" />
-    <Compile Include="ModelData\ResponseErrorContent.cs" />
+    <Compile Include="Model\ResponseErrorContent.cs" />
     <Compile Include="Service\ICaseFiling.cs" />
     <Compile Include="Service\IChargebacks.cs" />
     <Compile Include="Service\IClaims.cs" />
@@ -100,24 +115,32 @@
     <Compile Include="Service\IRetrievals.cs" />
     <Compile Include="Service\ITransactions.cs" />
     <Compile Include="Service\Queues.cs" />
-    <Compile Include="ModelData\ResponseQueues.cs" />
+    <Compile Include="Model\ResponseQueues.cs" />
     <Compile Include="Service\Retrievals.cs" />
     <Compile Include="Service\Transactions.cs" />
-    <Compile Include="Operation\CreateChargeback.cs" />
+    <Compile Include="Business\CreateChargeback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IMComConfigRepository.cs" />
     <Compile Include="Repository\IMscMcomRequestRepository.cs" />
-    <Compile Include="Repository\ITransactionData.cs" />
+    <Compile Include="Repository\ITransactionRepository.cs" />
     <Compile Include="Repository\MscMcomRequestRepository.cs" />
     <Compile Include="Security\CerteficateReader.cs" />
     <Compile Include="Security\IAuthAuthentication.cs" />
     <Compile Include="Security\ICerteficateReader.cs" />
     <Compile Include="Security\OAuthAuthentication.cs" />
     <Compile Include="Security\OAuthParameters.cs" />
+    <Compile Include="Operation\OMcomOperation.cs" />
+    <Compile Include="Tqr4\ITqr4FileReader.cs" />
+    <Compile Include="Tqr4\Tqr4FileFieldData.cs" />
+    <Compile Include="Tqr4\Tqr4FileFieldLen.cs" />
+    <Compile Include="Tqr4\Tqr4FileParser.cs" />
+    <Compile Include="Tqr4\Tqr4FileReader.cs" />
     <Compile Include="Utility\ApiController.cs" />
     <Compile Include="Utility\IApiController.cs" />
     <Compile Include="Repository\IMcomConfig.cs" />
     <Compile Include="Repository\MComConfigRepository.cs" />
+    <Compile Include="Utility\IRestyClient.cs" />
+    <Compile Include="Utility\LineFieldParser.cs" />
     <Compile Include="Utility\RestyClient.cs" />
     <Compile Include="Utility\Util.cs" />
   </ItemGroup>

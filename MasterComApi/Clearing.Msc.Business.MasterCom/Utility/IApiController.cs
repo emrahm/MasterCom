@@ -4,10 +4,10 @@ namespace Clearing.Msc.Business.MasterCom.Utility
 {
     public interface IApiController
     {
-        T Get<T>(string restUrl, Dictionary<string, string> parameterQuery);
+        T Get<T>(long refKey, string restUrl, Dictionary<string, string> parameterQuery);
 
-        T Create<T>(String restUrl, Object fromBody);
+        T Create<T>(long refKey, String restUrl, Object fromBody);
 
-        T Update<T>(string restUrl, Dictionary<string, string> parameters, Object caseDetail);
+        T Update<T>(long refKey, string restUrl, Dictionary<string, string> parameters, Object caseDetail);
     }
 }

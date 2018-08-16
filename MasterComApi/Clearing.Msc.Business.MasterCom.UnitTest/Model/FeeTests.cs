@@ -44,11 +44,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             feeDetail.creditReceiver = "false";
             feeDetail.message = "This is a test message";
             feeDetail.reason = "7604";
-            apiController.Setup(f => f.Create<FeeDetail>(It.IsAny<String>(), feeDetail))
+            apiController.Setup(f => f.Create<FeeDetail>(It.IsAny<long>(), It.IsAny<String>(), feeDetail))
             .Returns(new FeeDetail() { feeId = feeId });
             //act
             Fees fee = new Fees(apiController.Object);
-            var result = fee.CreateFee(claimId, feeDetail);
+            var result = fee.CreateFee(0, claimId, feeDetail);
             //assert
             Assert.That(result, Is.EqualTo(feeId));
         }

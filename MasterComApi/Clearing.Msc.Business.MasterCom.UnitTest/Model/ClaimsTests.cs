@@ -34,7 +34,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
         public void Create_NewClaim_ReturnClaimNumber()
         {
             //arrange
-            apiController.Setup(f => f.Create<ClaimResponse>(It.IsAny<String>(), It.IsAny<ClaimRequest>()))
+            apiController.Setup(f => f.Create<ClaimResponse>(It.IsAny<long>(), It.IsAny<String>(), It.IsAny<ClaimRequest>()))
              .Returns(new ClaimResponse() { claimId = claimId });
 
             ClaimRequest claimRequest = new ClaimRequest();
@@ -44,7 +44,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             claimRequest.clearingTransactionId = "hqCnaMDqmto4wnL+BSUKSdzROqGJ7YELoKhEvluycwKNg3XTz/faIJhFDkl9hW081B5tTqFFiAwCpcocPdB2My4t7DtSTk63VXDl1CySA8Y";
             //act
             Claims claim = new Claims(apiController.Object);
-            var result = claim.CreateClaim(claimRequest);
+            var result = claim.CreateClaim(0, claimRequest);
             //assert
             Assert.That(result, Is.EqualTo(claimId));
         }
@@ -53,7 +53,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
         public void Update_NewClaim_ReturnClaimNumber()
         {
             //arrange
-            apiController.Setup(f => f.Update<ClaimResponse>(It.IsAny<String>(), null, It.IsAny<ClaimUpdateRequest>()))
+            apiController.Setup(f => f.Update<ClaimResponse>(It.IsAny<long>(), It.IsAny<String>(), null, It.IsAny<ClaimUpdateRequest>()))
             .Returns(new ClaimResponse() { claimId = claimId });
 
             ClaimUpdateRequest claimRequest = new ClaimUpdateRequest();
@@ -61,7 +61,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             claimRequest.closeClaimReasonCode = "10";
             //act
             Claims claim = new Claims(apiController.Object);
-            var result = claim.UpdateClaim(claimId, claimRequest);
+            var result = claim.UpdateClaim(0, claimId, claimRequest);
             //assert
             Assert.That(result, Is.EqualTo(claimId));
         }
@@ -70,11 +70,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
         public void Get_Claim_ReturnClaimData()
         { 
             //arrange
-            apiController.Setup(f => f.Get<ClaimDetail>(It.IsAny<String>(), null))
+            apiController.Setup(f => f.Get<ClaimDetail>(It.IsAny<long>(), It.IsAny<String>(), null))
            .Returns(new ClaimDetail());
             //act
             Claims claim = new Claims(apiController.Object);
-            var result = claim.GetClaim(claimId);
+            var result = claim.GetClaim(0, claimId);
             //assert
             Assert.That(result, Is.TypeOf<ClaimDetail>());
         }

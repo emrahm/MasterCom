@@ -41,11 +41,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             fraudRequest.cvcInvalidIndicator = "Y";
             fraudRequest.chgbkIndicator = "1";
 
-            apiController.Setup(f => f.Create<FraudResponse>(It.IsAny<String>(), fraudRequest))
+            apiController.Setup(f => f.Create<FraudResponse>(It.IsAny<long>(), It.IsAny<String>(), fraudRequest))
                 .Returns(new FraudResponse() { fraudId = "300002292548" });
             //act
             Fraud fraudData = new Fraud(apiController.Object);
-            String result = fraudData.CreateForMasterCard(claimId, fraudRequest);
+            String result = fraudData.CreateForMasterCard(0, claimId, fraudRequest);
             //assert
             Assert.That(result, Is.EqualTo("300002292548"));
         }

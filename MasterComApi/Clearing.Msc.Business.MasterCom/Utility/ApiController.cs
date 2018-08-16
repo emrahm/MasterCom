@@ -19,48 +19,45 @@ namespace Clearing.Msc.Business.MasterCom.Utility
         JsonDeserializer deserial = new JsonDeserializer();
         private readonly MscMcomConfig _mcomConfig;
         private readonly IAuthAuthentication _authAuthentication;
-        private readonly IRestClient _restClient;
+        private readonly IRestyClient _restClient;
 
         public ApiController(MscMcomConfig mcomConfig,
                              IAuthAuthentication authAuthentication,
-                             IRestClient iRestClient)
+                             IRestyClient iRestClient)
         {
             _mcomConfig = mcomConfig;
             _authAuthentication = authAuthentication;
             _restClient = iRestClient;
         }
 
-        public T Get<T>(String restUrl, Dictionary<String, String> parameterQuery)
+        public T Get<T>(long refKey, String restUrl, Dictionary<String, String> parameterQuery)
         {
             Uri url = GetUrl(restUrl, parameterQuery);
             IRestRequest restyRequest = GetRestRequest(url, Method.GET);
-            _authAuthentication.SignRequest(url, restyRequest);
-            _restClient.BaseUrl = GetBaseUrl(url);
-            IRestResponse response = _restClient.Execute(restyRequest);
+            _authAuthentication.SignRequest(url, restyRequest); 
+            IRestResponse response = _restClient.Execute(refKey, url, restyRequest);
             return GetResponse<T>(response);
         }
 
 
 
-        public T Create<T>(String restUrl, object fromBody)
+        public T Create<T>(long refKey, String restUrl, object fromBody)
         {
             Uri url = GetUrl(restUrl, null);
             IRestRequest restyRequest = GetRestRequest(url, Method.POST);
             restyRequest.AddJsonBody(fromBody);
             _authAuthentication.SignRequest(url, restyRequest);
-            _restClient.BaseUrl = GetBaseUrl(url);
-            IRestResponse response = _restClient.Execute(restyRequest);
+            IRestResponse response = _restClient.Execute(refKey, url, restyRequest);
             return GetResponse<T>(response);
         }
 
-        public T Update<T>(string restUrl, Dictionary<string, string> parameters, object caseDetail)
+        public T Update<T>(long refKey, string restUrl, Dictionary<string, string> parameters, object caseDetail)
         {
             Uri url = GetUrl(restUrl, parameters);
             IRestRequest restyRequest = GetRestRequest(url, Method.PUT);
             restyRequest.AddJsonBody(caseDetail);
             _authAuthentication.SignRequest(url, restyRequest);
-            _restClient.BaseUrl = GetBaseUrl(url);
-            IRestResponse response = _restClient.Execute(restyRequest);
+            IRestResponse response = _restClient.Execute(refKey, url, restyRequest);
             return GetResponse<T>(response);
         }
 
@@ -110,11 +107,6 @@ namespace Clearing.Msc.Business.MasterCom.Utility
                                _mcomConfig.UrlVersionNumber,
                                restUrl,
                                parameterQuery);
-        }
-
-        private Uri GetBaseUrl(Uri uri)
-        {
-            return new Uri(uri.Scheme + "://" + uri.Host + ":" + uri.Port);
         }
     }
 }

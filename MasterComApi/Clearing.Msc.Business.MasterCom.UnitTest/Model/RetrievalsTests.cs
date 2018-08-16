@@ -38,12 +38,12 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             retrievalCreateRequest.retrievalRequestReason = "6343";
             retrievalCreateRequest.docNeeded = "2";
 
-            apiController.Setup(f => f.Create<RetrievalResponse>(It.IsAny<String>(), retrievalCreateRequest))
+            apiController.Setup(f => f.Create<RetrievalResponse>(It.IsAny<long>(), It.IsAny<String>(), retrievalCreateRequest))
                .Returns(new RetrievalResponse() { requestId = requestId });
 
             //act
             Retrievals retrievals = new Retrievals(apiController.Object);
-            String result = retrievals.CreateRetrieval(claimId, retrievalCreateRequest);
+            String result = retrievals.CreateRetrieval(0, claimId, retrievalCreateRequest);
             //assert
             Assert.That(result, Is.EqualTo(requestId));
         }
@@ -60,11 +60,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             retrievalFulfillmentRequest.fileAttachment.filename = "test.tif";
             retrievalFulfillmentRequest.fileAttachment.file = "sample file";
 
-            apiController.Setup(f => f.Create<RetrievalResponse>(It.IsAny<String>(), retrievalFulfillmentRequest))
+            apiController.Setup(f => f.Create<RetrievalResponse>(It.IsAny<long>(), It.IsAny<String>(), retrievalFulfillmentRequest))
                 .Returns(new RetrievalResponse() { requestId = requestId });
             //act
             Retrievals retrievals = new Retrievals(apiController.Object);
-            String result = retrievals.AcquirerFulfillRequest(claimId, requestId, retrievalFulfillmentRequest);
+            String result = retrievals.AcquirerFulfillRequest(0, claimId, requestId, retrievalFulfillmentRequest);
             //assert
             Assert.That(result, Is.EqualTo(requestId));
 
@@ -81,11 +81,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             retrievalResponseFulfillmentRequest.memo = "This is an example of what a memo could contain";
             retrievalResponseFulfillmentRequest.rejectReasonCd = "A";
 
-            apiController.Setup(f => f.Create<RetrievalResponse>(It.IsAny<String>(), retrievalResponseFulfillmentRequest))
+            apiController.Setup(f => f.Create<RetrievalResponse>(It.IsAny<long>(), It.IsAny<String>(), retrievalResponseFulfillmentRequest))
             .Returns(new RetrievalResponse() { requestId = requestId });
             //act
             Retrievals retrievals = new Retrievals(apiController.Object);
-            String result = retrievals.IssuerRespondToFulfillment(claimId, requestId, retrievalResponseFulfillmentRequest);
+            String result = retrievals.IssuerRespondToFulfillment(0, claimId, requestId, retrievalResponseFulfillmentRequest);
             //assert
             Assert.That(result, Is.EqualTo(requestId));
 
@@ -97,12 +97,12 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             //arrange
             string requestId = "100663292";
 
-            apiController.Setup(f => f.Get<FileAttachment>(It.IsAny<String>(), It.IsAny<Dictionary<String, String>>()))
+            apiController.Setup(f => f.Get<FileAttachment>(It.IsAny<long>(), It.IsAny<String>(), It.IsAny<Dictionary<String, String>>()))
             .Returns(new FileAttachment());
 
             //act
             Retrievals retrievals = new Retrievals(apiController.Object);
-            FileAttachment result = retrievals.GetDocumentation(claimId, requestId);
+            FileAttachment result = retrievals.GetDocumentation(0, claimId, requestId);
             //assert
             Assert.That(result, Is.TypeOf<FileAttachment>());
         }

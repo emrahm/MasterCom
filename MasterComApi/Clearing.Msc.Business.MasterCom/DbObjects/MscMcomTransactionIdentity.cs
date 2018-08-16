@@ -15,5 +15,6 @@ namespace Clearing.Msc.Business.MasterCom.DbObjects
         public Int64 AuthRefNo { get; set; }
         public String ClearingTransactionId { get; set; }
         public String AuthenticationTransactionId { get; set; }
+        public String ClaimId { get; set; }
     }
 }

@@ -21,19 +21,19 @@ namespace Clearing.Msc.Business.MasterCom.Model
             _apiController = apiController;
         }
 
-        public String CreateClaim(ClaimRequest claimRequest)
+        public String CreateClaim(long refKey, ClaimRequest claimRequest)
         {
-            return _apiController.Create<ClaimResponse>("claims", claimRequest).claimId;
+            return _apiController.Create<ClaimResponse>(refKey, "claims", claimRequest).claimId;
         }
 
-        public ClaimDetail GetClaim(String claimId)
+        public ClaimDetail GetClaim(long refKey, String claimId)
         {
-            return _apiController.Get<ClaimDetail>(String.Format("claims/{0}", claimId), null);
+            return _apiController.Get<ClaimDetail>(refKey, String.Format("claims/{0}", claimId), null);
         }
 
-        public String UpdateClaim(String claimId, ClaimUpdateRequest claimUpdateRequest)
+        public String UpdateClaim(long refKey, String claimId, ClaimUpdateRequest claimUpdateRequest)
         {
-            return _apiController.Update<ClaimResponse>(String.Format("claims/{0}", claimId), null, claimUpdateRequest).claimId;
+            return _apiController.Update<ClaimResponse>(refKey, String.Format("claims/{0}", claimId), null, claimUpdateRequest).claimId;
         }
     }
 }

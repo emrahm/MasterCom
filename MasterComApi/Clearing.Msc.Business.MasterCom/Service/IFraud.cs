@@ -5,6 +5,6 @@ namespace Clearing.Msc.Business.MasterCom.Model
 {
     interface IFraud
     {
-        string CreateForMasterCard(string claimId, FraudRequest fraudRequest);
+        string CreateForMasterCard(long refKey, string claimId, FraudRequest fraudRequest);
     }
 }

@@ -22,9 +22,9 @@ namespace Clearing.Msc.Business.MasterCom.Model
         }
 
 
-        public string CreateForMasterCard(string claimId, FraudRequest fraudRequest)
+        public string CreateForMasterCard(long refKey, string claimId, FraudRequest fraudRequest)
         {
-            return _apiController.Create<FraudResponse>(String.Format("claims/{0}/fraud/mastercard", claimId), fraudRequest).fraudId;
+            return _apiController.Create<FraudResponse>(refKey, String.Format("claims/{0}/fraud/mastercard", claimId), fraudRequest).fraudId;
         }
     }
 }

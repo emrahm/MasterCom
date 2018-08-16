@@ -38,12 +38,12 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
             tran.tranStartDate = "2017-10-01";
             tran.tranEndDate = "2017-10-01";
 
-            apiController.Setup(f => f.Create<TransactionSearchResponse>(It.IsAny<String>(), tran))
+            apiController.Setup(f => f.Create<TransactionSearchResponse>(It.IsAny<long>(), It.IsAny<String>(), tran))
                       .Returns(new TransactionSearchResponse() { authorizationSummaryCount = "1" });
 
             //act
             Transactions transaction = new Transactions(apiController.Object);
-            var result = transaction.Search(tran);
+            var result = transaction.Search(0, tran);
             //assert
             Assert.That(result.authorizationSummaryCount, Is.EqualTo("1"));
             Assert.That(result, Is.TypeOf<TransactionSearchResponse>());
@@ -52,11 +52,11 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
         [Test]
         public void ClearingTran_ShouldReturn()
         {
-            apiController.Setup(f => f.Get<TransactionClearing>(It.IsAny<String>(), null))
+            apiController.Setup(f => f.Get<TransactionClearing>(It.IsAny<long>(), It.IsAny<String>(), null))
                 .Returns(new TransactionClearing() { transactionType = "Clearing" });
 
             Transactions transaction = new Transactions(apiController.Object);
-            var result = transaction.ClearingTran(claimId, transactionId);
+            var result = transaction.ClearingTran(0, claimId, transactionId);
             Assert.That(result, Is.TypeOf<TransactionClearing>());
             Assert.That(result.transactionType, Is.EqualTo("Clearing"));
         }
@@ -64,11 +64,11 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Model
         [Test]
         public void AuthTran_ShouldReturn()
         {
-            apiController.Setup(f => f.Get<TransactionAuthorization>(It.IsAny<String>(), null))
+            apiController.Setup(f => f.Get<TransactionAuthorization>(It.IsAny<long>(), It.IsAny<String>(), null))
                .Returns(new TransactionAuthorization() { transactionType = "Authorization" });
 
             Transactions transaction = new Transactions(apiController.Object);
-            var result = transaction.AuthorizationTran(claimId, transactionId);
+            var result = transaction.AuthorizationTran(0, claimId, transactionId);
             Assert.That(result, Is.TypeOf<TransactionAuthorization>());
             Assert.That(result.transactionType, Is.EqualTo("Authorization"));
         }

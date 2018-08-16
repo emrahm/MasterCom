@@ -34,7 +34,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
         {
             String chargebackId = "300002063556";
             //assign
-            apiController.Setup(f => f.Create<ChargebackResponse>(It.IsAny<String>(), It.IsAny<ChargebackFillRequest>()))
+            apiController.Setup(f => f.Create<ChargebackResponse>(It.IsAny<long>(), It.IsAny<String>(), It.IsAny<ChargebackFillRequest>()))
             .Returns(new ChargebackResponse() { chargebackId = chargebackId });
 
             chargebackRequest = new ChargebackFillRequest();
@@ -48,7 +48,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             chargebackRequest.chargebackType = "ARB_CHARGEBACK";
             //act
             Chargebacks chargeback = new Chargebacks(apiController.Object);
-            var result = chargeback.Create(claimId, chargebackRequest);
+            var result = chargeback.Create(0, claimId, chargebackRequest);
             //assert
             Assert.That(result, Is.EqualTo(chargebackId));
         }
@@ -59,11 +59,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             String chargebackId = "974455";
             String chargebackReversalId = "974455";
 
-            apiController.Setup(f => f.Create<ChargebackResponse>(It.IsAny<String>(), It.IsAny<ChargebackRequest>()))
+            apiController.Setup(f => f.Create<ChargebackResponse>(It.IsAny<long>(), It.IsAny<String>(), It.IsAny<ChargebackRequest>()))
             .Returns(new ChargebackResponse() { chargebackId = chargebackReversalId });
 
             Chargebacks chargeback = new Chargebacks(apiController.Object);
-            var result = chargeback.CreateReversal(new ChargebackRequest
+            var result = chargeback.CreateReversal(0, new ChargebackRequest
             {
                 claimId = claimId,
                 chargebackId = chargebackId
@@ -76,11 +76,11 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
         public void Ent_RetrieveDocumentation()
         {
             String chargebackId = "974455";
-            apiController.Setup(f => f.Get<FileAttachment>(It.IsAny<String>(), It.IsAny<Dictionary<string, string>>()))
+            apiController.Setup(f => f.Get<FileAttachment>(It.IsAny<long>(), It.IsAny<String>(), It.IsAny<Dictionary<string, string>>()))
              .Returns(new FileAttachment());
 
             Chargebacks chargeback = new Chargebacks(apiController.Object);
-            var result = chargeback.RetrieveDocumentation(new ChargebackRequest
+            var result = chargeback.RetrieveDocumentation(0, new ChargebackRequest
             {
                 claimId = claimId,
                 chargebackId = chargebackId
@@ -96,14 +96,14 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             String chargebackId = "974455";
             chargebackRequest = new ChargebackFillRequest();
 
-            apiController.Setup(f => f.Update<ChargebackResponse>(It.IsAny<String>(), null, It.IsAny<ChargebackFillRequest>()))
+            apiController.Setup(f => f.Update<ChargebackResponse>(It.IsAny<long>(), It.IsAny<String>(), null, It.IsAny<ChargebackFillRequest>()))
             .Returns(new ChargebackResponse() { chargebackId = chargebackId });
 
             chargebackRequest.memo = "This is a test memo";
             chargebackRequest.fileAttachment.filename = "test.tif";
             chargebackRequest.fileAttachment.file = "sample file";
             Chargebacks chargeback = new Chargebacks(apiController.Object);
-            var result = chargeback.Update(new ChargebackRequest
+            var result = chargeback.Update(0, new ChargebackRequest
             {
                 claimId = claimId,
                 chargebackId = chargebackId
@@ -121,7 +121,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             List<ChargebackRequest> chargebackRequestList = new List<ChargebackRequest>();
             chargebackRequestList.Add(new ChargebackRequest() { claimId = "200002020654", chargebackId = "300002063556" });
 
-            apiController.Setup(f => f.Update<ChargebackAcknowledgeResponse>(It.IsAny<String>(), null, It.IsAny<ChargebackAcknowledgeRequest>()))
+            apiController.Setup(f => f.Update<ChargebackAcknowledgeResponse>(It.IsAny<long>(), It.IsAny<String>(), null, It.IsAny<ChargebackAcknowledgeRequest>()))
             .Returns(new ChargebackAcknowledgeResponse()
                         {
                             chargebackResponseList = new List<ChargebackResponse>
@@ -133,7 +133,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
 
             //act
             Chargebacks chargeback = new Chargebacks(apiController.Object);
-            var result = chargeback.AcknowledgeReceivedChargebacks(chargebackRequestList);
+            var result = chargeback.AcknowledgeReceivedChargebacks(0, chargebackRequestList);
             //assert
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].chargebackId, Is.EqualTo(chargebackId));
@@ -147,7 +147,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             List<ChargebackRequest> chargebackRequestList = new List<ChargebackRequest>();
             chargebackRequestList.Add(new ChargebackRequest() { claimId = "12344", chargebackId = chargebackId });
 
-            apiController.Setup(f => f.Update<ChargebackStatusResponseList>(It.IsAny<String>(), null, It.IsAny<ChargebackStatusRequest>()))
+            apiController.Setup(f => f.Update<ChargebackStatusResponseList>(It.IsAny<long>(), It.IsAny<String>(), null, It.IsAny<ChargebackStatusRequest>()))
             .Returns(new ChargebackStatusResponseList()
             {
                 chargebackResponseList = new List<ChargebackStatusResponse>
@@ -158,7 +158,7 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
 
             //act
             Chargebacks chargeback = new Chargebacks(apiController.Object);
-            var result = chargeback.ChargebacksStatus(chargebackRequestList);
+            var result = chargeback.ChargebacksStatus(0, chargebackRequestList);
             //assert
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].status, Is.EqualTo("COMPLETED"));

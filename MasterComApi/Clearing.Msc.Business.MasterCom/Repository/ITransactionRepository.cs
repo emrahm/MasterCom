@@ -11,7 +11,7 @@ namespace Clearing.Msc.Business.MasterCom.Repository
     /// <summary>
     /// data bilgilerini bu class'dan alınacak
     /// </summary>
-    public interface ITransactionData
+    public interface ITransactionRepository
     {
         /// <summary>
         /// Presentment data alınır. transaction search yapılır.
@@ -38,16 +38,30 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         /// <returns></returns>
         Boolean CreateTransactionId(MscMcomTransactionId mscMcomTransactionId);
         /// <summary>
-        /// Claim sistemden alınır yapılır.
-        /// </summary>
-        /// <param name="mscMcomPool"></param>
-        /// <returns></returns>
-        MscMcomClaim GetClaim(MscMcomPool mscMcomPool);
-        /// <summary>
         /// Sistem mastercard'daki claim yazılır.
         /// </summary>
         /// <param name="mscMcomPool"></param>
         /// <returns></returns>
         MscMcomClaim CreateClaim(MscMcomPool mscMcomPool);
+        /// <summary>
+        /// Claim bilgisini verir.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        MscMcomClaim GetClaim(string claimId);
+        /// <summary>
+        /// Gelen claim'i sisteme yazar.
+        /// </summary>
+        /// <param name="mscMcomClaim"></param>
+        void CreateClaim(MscMcomClaim mscMcomClaim);
+        /// <summary>
+        /// Üretilen son claim id'si update edilir.
+        /// </summary>
+        /// <param name="mscMcomTransactionId"></param>
+        void UpdateClaimId(MscMcomTransactionId mscMcomTransactionId);
+
+        IEnumerable<MscMcomPool> GetPool();
+
+        void UpdatePoolItem(MscMcomPool item);
     }
 }

@@ -31,9 +31,9 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// <param name="claimId">Claim id</param>
         /// <param name="chargebackRequest">chargeback data</param>
         /// <returns>chargebackId</returns>
-        public String Create(String claimId, ChargebackFillRequest chargebackRequest)
+        public String Create(long refKey, String claimId, ChargebackFillRequest chargebackRequest)
         {
-            var result = _apiController.Create<ChargebackResponse>(String.Format("claims/{0}/chargebacks", claimId), chargebackRequest);
+            var result = _apiController.Create<ChargebackResponse>(refKey, String.Format("claims/{0}/chargebacks", claimId), chargebackRequest);
             return result.chargebackId;
         }
         /// <summary>
@@ -42,10 +42,10 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// <param name="claimId">Claim id</param>
         /// <param name="chargebackRequest">chargeback data</param>
         /// <returns>chargebackId</returns>
-        public String Update(ChargebackRequest chargebackRequest, ChargebackFillRequest chargebackFillRequest)
+        public String Update(long refKey, ChargebackRequest chargebackRequest, ChargebackFillRequest chargebackFillRequest)
         {
             String restUrl = String.Format("claims/{0}/chargebacks/{1}", chargebackRequest.claimId, chargebackRequest.chargebackId);
-            var result = _apiController.Update<ChargebackResponse>(restUrl, null, chargebackFillRequest);
+            var result = _apiController.Update<ChargebackResponse>(refKey, restUrl, null, chargebackFillRequest);
             return result.chargebackId;
         }
         /// <summary>
@@ -54,10 +54,10 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// <param name="claimId"></param>
         /// <param name="chargebackId"></param>
         /// <returns>return chargeback id of reversal record.</returns>
-        public String CreateReversal(ChargebackRequest chargebackRequest)
+        public String CreateReversal(long refKey, ChargebackRequest chargebackRequest)
         {
             String restUrl = String.Format("claims/{0}/chargebacks/{1}/reversal", chargebackRequest.claimId, chargebackRequest.chargebackId);
-            var result = _apiController.Create<ChargebackResponse>(restUrl, null);
+            var result = _apiController.Create<ChargebackResponse>(refKey, restUrl, null);
             return result.chargebackId;
         }
         /// <summary>
@@ -66,26 +66,27 @@ namespace Clearing.Msc.Business.MasterCom.Model
         /// <param name="claimId">Claim Id</param>
         /// <param name="chargebackId">Chargeback Id</param>
         /// <returns>File converted to a base64 encoded string. File Format is ZIP Note: ZIP file may contain these formats...JPG, TIFF, PDF</returns>
-        public FileAttachment RetrieveDocumentation(ChargebackRequest chargebackRequest)
+        public FileAttachment RetrieveDocumentation(long refKey, ChargebackRequest chargebackRequest)
         {
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             parameters.Add("format", "ORIGINAL");
             String restUrl = String.Format("claims/{0}/chargebacks/{1}/documents", chargebackRequest.claimId, chargebackRequest.chargebackId);
-            return _apiController.Get<FileAttachment>(restUrl, parameters);
+            return _apiController.Get<FileAttachment>(refKey, restUrl, parameters);
         }
 
-        public List<ChargebackResponse> AcknowledgeReceivedChargebacks(List<ChargebackRequest> chargebackRequestList)
+        public List<ChargebackResponse> AcknowledgeReceivedChargebacks(long refKey, List<ChargebackRequest> chargebackRequestList)
         {
-            var result = _apiController.Update<ChargebackAcknowledgeResponse>("chargebacks/acknowledge",
+            var result = _apiController.Update<ChargebackAcknowledgeResponse>(refKey, 
+                                                                    "chargebacks/acknowledge",
                                                                     null,
                                                                     new ChargebackAcknowledgeRequest() { chargebackList = chargebackRequestList });
             return result.chargebackResponseList;
         }
 
 
-        public List<ChargebackStatusResponse> ChargebacksStatus(List<ChargebackRequest> chargebackRequestList)
+        public List<ChargebackStatusResponse> ChargebacksStatus(long refKey, List<ChargebackRequest> chargebackRequestList)
         {
-            var result = _apiController.Update<ChargebackStatusResponseList>("chargebacks/status",
+            var result = _apiController.Update<ChargebackStatusResponseList>(refKey, "chargebacks/status",
                                                                     null,
                                                                     new ChargebackStatusRequest() { chargebackList = chargebackRequestList });
             return result.chargebackResponseList;

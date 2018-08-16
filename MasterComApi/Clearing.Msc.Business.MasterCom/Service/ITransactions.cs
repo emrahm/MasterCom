@@ -5,8 +5,8 @@ namespace Clearing.Msc.Business.MasterCom.Model
 {
     public interface ITransactions
     {
-        TransactionAuthorization AuthorizationTran(string claimId, string transactionId);
-        TransactionClearing ClearingTran(string claimId, string transactionId);
-        TransactionSearchResponse Search(TransactionSearchRequest transactionSearchRequest);
+        TransactionAuthorization AuthorizationTran(long refKey, string claimId, string transactionId);
+        TransactionClearing ClearingTran(long refKey, string claimId, string transactionId);
+        TransactionSearchResponse Search(long refKey, TransactionSearchRequest transactionSearchRequest);
     }
 }

@@ -5,8 +5,8 @@ namespace Clearing.Msc.Business.MasterCom.Model
 {
     public interface IClaims
     {
-        string CreateClaim(ClaimRequest claimRequest);
-        ClaimDetail GetClaim(string claimId);
-        string UpdateClaim(string claimId, ClaimUpdateRequest claimUpdateRequest);
+        string CreateClaim(long refKey, ClaimRequest claimRequest);
+        ClaimDetail GetClaim(long refKey, string claimId);
+        string UpdateClaim(long refKey, string claimId, ClaimUpdateRequest claimUpdateRequest);
     }
 }

@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.Utility
 {
-    public class RestyClient 
+    /// <summary>
+    /// This class takes log of the request and response of rest api calls.
+    /// </summary>
+    public class RestyClient : IRestyClient
     {
         RestClient restClient = null;
         IMscMcomRequestRepository _mscMcomRequestRepository = null;
@@ -19,16 +22,15 @@ namespace Clearing.Msc.Business.MasterCom.Utility
             restClient = new RestClient();
         }
 
-        public IRestResponse Execute(Uri url, IRestRequest restRequest)
+        public IRestResponse Execute(long refKey, Uri url, IRestRequest restRequest)
         {
             restClient.BaseUrl = GetBaseUrl(url);
-            MscMcomRequest mscMcomRequest = GetMscMcomRequest(url, 0, restRequest);
-            Int64 guid = _mscMcomRequestRepository.Create(mscMcomRequest);
+            MscMcomRequest mscMcomRequest = GetMscMcomRequest(url, refKey, restRequest);
             var restResponse = restClient.Execute(restRequest);
             UpdateRestResponse(mscMcomRequest, restResponse);
-            _mscMcomRequestRepository.Update(guid,  mscMcomRequest);
+            _mscMcomRequestRepository.Create(mscMcomRequest);
             return restResponse;
-        } 
+        }
 
         private Uri GetBaseUrl(Uri uri)
         {
@@ -40,13 +42,24 @@ namespace Clearing.Msc.Business.MasterCom.Utility
             MscMcomRequest mscMcomRequest = new MscMcomRequest();
             mscMcomRequest.RefKey = refKey;
             mscMcomRequest.Url = url.PathAndQuery;
-            mscMcomRequest.Request =  "";
+            mscMcomRequest.Request = GetBody(restRequest);
             return mscMcomRequest;
         }
 
         private void UpdateRestResponse(MscMcomRequest mscMcomRequest, IRestResponse restResponse)
         {
             mscMcomRequest.HttpStatus = 200;
+            mscMcomRequest.Response = restResponse.Content;
+        }
+
+        private String GetBody(IRestRequest restRequest)
+        {
+            foreach (var item in restRequest.Parameters)
+            {
+                if (item.Type == ParameterType.RequestBody)
+                    return item.Value.ToString();
+            }
+            return String.Empty;
         }
     }
 }

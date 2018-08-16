@@ -24,14 +24,14 @@ namespace Clearing.Msc.Business.MasterCom.Model
             _apiController = apiController;
         }
 
-        public List<ResponseQueue> GetQueues(String queueName)
+        public List<ResponseQueue> GetQueues(long refKey, String queueName)
         {
             if (String.IsNullOrWhiteSpace(queueName))
                 throw new Exception("QueueName can not be null or empty");
 
             Dictionary<String, String> parameters = new Dictionary<string,string>();
             parameters.Add("queue-name", queueName);
-            return _apiController.Get<List<ResponseQueue>>("queues", parameters); 
+            return _apiController.Get<List<ResponseQueue>>(refKey, "queues", parameters); 
         }
     }
 }

@@ -6,11 +6,11 @@ namespace Clearing.Msc.Business.MasterCom.Model
 {
     public interface IChargebacks
     {
-        List<ChargebackResponse> AcknowledgeReceivedChargebacks(List<ChargebackRequest> chargebackRequestList);
-        List<ChargebackStatusResponse> ChargebacksStatus(List<ChargebackRequest> chargebackRequestList);
-        string Create(string claimId, ChargebackFillRequest chargebackRequest);
-        string CreateReversal(ChargebackRequest chargebackRequest);
-        FileAttachment RetrieveDocumentation(ChargebackRequest chargebackRequest);
-        string Update(ChargebackRequest chargebackRequest, ChargebackFillRequest chargebackFillRequest);
+        List<ChargebackResponse> AcknowledgeReceivedChargebacks(long refKey, List<ChargebackRequest> chargebackRequestList);
+        List<ChargebackStatusResponse> ChargebacksStatus(long refKey, List<ChargebackRequest> chargebackRequestList);
+        string Create(long refKey, string claimId, ChargebackFillRequest chargebackRequest);
+        string CreateReversal(long refKey, ChargebackRequest chargebackRequest);
+        FileAttachment RetrieveDocumentation(long refKey, ChargebackRequest chargebackRequest);
+        string Update(long refKey, ChargebackRequest chargebackRequest, ChargebackFillRequest chargebackFillRequest);
     }
 }
