@@ -20,12 +20,12 @@ namespace Clearing.Msc.Business.MasterCom.Repository
             throw new NotImplementedException();
         }
 
-        public MscMcomTransactionId GetTransactionId(long provGuid)
+        public MscMcomTransaction GetTransactionId(long provGuid)
         {
             throw new NotImplementedException();
         }
 
-        public bool CreateTransactionId(MscMcomTransactionId mscMcomTransactionId)
+        public bool CreateTransactionId(MscMcomTransaction mscMcomTransactionId)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace Clearing.Msc.Business.MasterCom.Repository
             throw new NotImplementedException();
         }
 
-        public void UpdateClaimId(MscMcomTransactionId mscMcomTransactionId)
+        public void UpdateClaimId(MscMcomTransaction mscMcomTransactionId)
         {
             throw new NotImplementedException();
         }
@@ -57,6 +57,12 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         }
 
         public void UpdatePoolItem(MscMcomPool item)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InsertTqr4Data(List<MscMcomTqr4> mscMcomTqr4List)
         {
             throw new NotImplementedException();
         }

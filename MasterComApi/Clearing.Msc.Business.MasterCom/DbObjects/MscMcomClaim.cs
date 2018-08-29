@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Smartway.Ocean.Framework.Pom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,34 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.DbObjects
 {
-    public class MscMcomClaim
+    [SWTable("OC_MSC", "MSC_MCOM_CLAIM")]
+    public partial class MscMcomClaim : SWDbObject
     {
-        public Int64 Guid { get; set; }
-        public Int16 Status { get; set; }
-        public Int64 LastUpdated { get; set; }
-        public String ClearingTransactionId { get; set; }
-        public Int64 ClrKey { get; set; }
-        public Int64 AuthKey { get; set; }
-        public String ClaimId { get; set; }
-        public String ClaimStatu { get; set; }
+        #region Properties
+        [SWColumn("GUID", ColumnType.GUID)]
+        public long guid { get; set; }
+
+        [SWColumn("STATUS", ColumnType.STATUS)]
+        public short status { get; set; }
+
+        [SWColumn("LASTUPDATED", ColumnType.LASTUPDATED)]
+        public long lastUpdated { get; set; }
+
+        [SWColumn("CLEARING_TRANSACTION_ID")]
+        public string ClearingTransactionId { get; set; }
+
+        [SWColumn("CLR_KEY")]
+        public long ClrKey { get; set; }
+
+        [SWColumn("AUTH_KEY")]
+        public long AuthKey { get; set; }
+
+        [SWColumn("CLAIM_ID")]
+        public string ClaimId { get; set; }
+
+        [SWColumn("CLAIM_STATU")]
+        public string ClaimStatu { get; set; }
+
+        #endregion
     }
 }

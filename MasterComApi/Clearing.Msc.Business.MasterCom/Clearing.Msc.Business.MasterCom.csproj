@@ -56,9 +56,11 @@
     <Compile Include="Business\IOperation.cs" />
     <Compile Include="Business\IOperationFactory.cs" />
     <Compile Include="Business\OperationFactory.cs" />
+    <Compile Include="Business\Tqr4LoadData.cs" />
     <Compile Include="DbObjects\MscMcomClaim.cs" />
     <Compile Include="DbObjects\MscMcomPool.cs" />
-    <Compile Include="DbObjects\MscMcomTransactionIdentity.cs" />
+    <Compile Include="DbObjects\MscMcomTqr4.cs" />
+    <Compile Include="DbObjects\MscMcomTransaction.cs" />
     <Compile Include="DbObjects\MscMcomConfig.cs" />
     <Compile Include="DbObjects\MscMcomRequest.cs" />
     <Compile Include="DbObjects\MscTransactionData.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Model\TransactionSearchRequest.cs" />
     <Compile Include="Model\TransactionSearchResponse.cs" />
     <Compile Include="Business\ProcessPool.cs" />
+    <Compile Include="Operation\OMcomLoadTqr4File.cs" />
     <Compile Include="Repository\TransactionRepository.cs" />
     <Compile Include="Service\CaseFiling.cs" />
     <Compile Include="Service\Chargebacks.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Security\OAuthAuthentication.cs" />
     <Compile Include="Security\OAuthParameters.cs" />
     <Compile Include="Operation\OMcomOperation.cs" />
+    <Compile Include="Tqr4\ITqr4FileParser.cs" />
     <Compile Include="Tqr4\ITqr4FileReader.cs" />
     <Compile Include="Tqr4\Tqr4FileFieldData.cs" />
     <Compile Include="Tqr4\Tqr4FileFieldLen.cs" />

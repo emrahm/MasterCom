@@ -14,12 +14,13 @@ namespace Clearing.Msc.Business.MasterCom.Utility
     /// </summary>
     public class RestyClient : IRestyClient
     {
-        RestClient restClient = null;
+        IRestClient restClient = null;
         IMscMcomRequestRepository _mscMcomRequestRepository = null;
-        public RestyClient(IMscMcomRequestRepository mscMcomRequestRepository)
+        public RestyClient(IMscMcomRequestRepository mscMcomRequestRepository,
+                           IRestClient iRestClient)
         {
             _mscMcomRequestRepository = mscMcomRequestRepository;
-            restClient = new RestClient();
+            restClient = iRestClient;
         }
 
         public IRestResponse Execute(long refKey, Uri url, IRestRequest restRequest)
@@ -54,12 +55,13 @@ namespace Clearing.Msc.Business.MasterCom.Utility
 
         private String GetBody(IRestRequest restRequest)
         {
+            String body = String.Empty;
             foreach (var item in restRequest.Parameters)
             {
                 if (item.Type == ParameterType.RequestBody)
-                    return item.Value.ToString();
+                    body = item.Value.ToString();
             }
-            return String.Empty;
+            return body;
         }
     }
 }

@@ -13,10 +13,5 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         {
             return 0;
         }
-
-        public void Update(long guid, MscMcomRequest mscMcomRequest)
-        { 
-
-        }
     }
 }

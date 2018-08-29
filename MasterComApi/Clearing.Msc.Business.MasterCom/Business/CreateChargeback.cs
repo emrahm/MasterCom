@@ -37,7 +37,7 @@ namespace Clearing.Msc.Business.MasterCom.Business
             //yapılan chargeback datası alınmakta.
             ChargebackFillRequest chargebackFillRequest = _iTransactionData.GetChargebackData(mscMcomPool.ClearingRefKey);
             //Chargeback yapılacak transaction mastrercom tarafından bulunur. Clearingtransaction id alınır.
-            MscMcomTransactionId mscMcomTransactionId = GetMscMcomTransactionId(mscMcomPool);
+            MscMcomTransaction mscMcomTransactionId = GetMscMcomTransactionId(mscMcomPool);
             //claim bulunur.
             MscMcomClaim mscMcomClaim = GetMscMcomClaim(mscMcomPool, chargebackFillRequest, mscMcomTransactionId);
             //chargeback üretilir.
@@ -54,7 +54,7 @@ namespace Clearing.Msc.Business.MasterCom.Business
         /// <param name="chargebackFillRequest"></param>
         /// <param name="mscMcomTransactionId"></param>
         /// <returns></returns>
-        private MscMcomClaim GetMscMcomClaim(MscMcomPool mscMcomPool, ChargebackFillRequest chargebackFillRequest, MscMcomTransactionId mscMcomTransactionId)
+        private MscMcomClaim GetMscMcomClaim(MscMcomPool mscMcomPool, ChargebackFillRequest chargebackFillRequest, MscMcomTransaction mscMcomTransactionId)
         {
             MscMcomClaim mscMcomClaim = null;
             if (!String.IsNullOrWhiteSpace(mscMcomTransactionId.ClaimId))
@@ -86,9 +86,9 @@ namespace Clearing.Msc.Business.MasterCom.Business
         /// </summary>
         /// <param name="mscMcomPool"></param>
         /// <returns></returns>
-        private MscMcomTransactionId GetMscMcomTransactionId(MscMcomPool mscMcomPool)
+        private MscMcomTransaction GetMscMcomTransactionId(MscMcomPool mscMcomPool)
         {
-            MscMcomTransactionId mscMcomTransactionId = _iTransactionData.GetTransactionId(mscMcomPool.ProvisionRefKey);
+            MscMcomTransaction mscMcomTransactionId = _iTransactionData.GetTransactionId(mscMcomPool.ProvisionRefKey);
             if (mscMcomTransactionId == null)
             {
                 //presenment kaydı alınır
@@ -102,11 +102,11 @@ namespace Clearing.Msc.Business.MasterCom.Business
                 var transactionSearchResponse = _iTransactions.Search(mscMcomPool.ClearingRefKey, transactionSearchRequest);
                 if (Convert.ToInt16(transactionSearchResponse.authorizationSummaryCount) > 0)
                 {
-                    mscMcomTransactionId = new MscMcomTransactionId();
+                    mscMcomTransactionId = new MscMcomTransaction();
                     mscMcomTransactionId.ClearingTransactionId = transactionSearchResponse.authorizationSummary[0].clearingSummary[0].transactionId;
                     mscMcomTransactionId.AuthenticationTransactionId = transactionSearchResponse.authorizationSummary[0].transactionId;
                     mscMcomTransactionId.ClrRefKey = mscMcomPool.ClearingRefKey;
-                    mscMcomTransactionId.AuthRefNo = mscMcomPool.ProvisionRefKey;
+                    mscMcomTransactionId.AuthRefKey = mscMcomPool.ProvisionRefKey;
                     _iTransactionData.CreateTransactionId(mscMcomTransactionId);
                 }
             }

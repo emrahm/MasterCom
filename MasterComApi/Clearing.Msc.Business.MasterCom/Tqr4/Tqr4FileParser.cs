@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.Tqr4
 {
-    public class Tqr4FileParser
+    public class Tqr4FileParser : Clearing.Msc.Business.MasterCom.Tqr4.ITqr4FileParser
     {
         ITqr4FileReader _iTqr4FileReader = null;
 

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.Business
 {
-    public class OperationFactory : Clearing.Msc.Business.MasterCom.Business.IOperationFactory
+    public class OperationFactory : IOperationFactory
     {
         static IApiController _iApiController = null;
         static CreateChargeback _createChargeback = null; 
@@ -49,7 +49,8 @@ namespace Clearing.Msc.Business.MasterCom.Business
                                                   new OAuthAuthentication(iMComConfigRepository.GetMComConfig(),
                                                                           new CerteficateReader(),
                                                                           SecurityProtocolType.Tls12),
-                                                  new RestyClient(new MscMcomRequestRepository()));
+                                                  new RestyClient(new MscMcomRequestRepository(), 
+                                                                  new RestClient()));
             }
             return _iApiController;
         }

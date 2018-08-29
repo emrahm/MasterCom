@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.DbObjects
 {
-    [SWTable("OC_MSC", "MSC_MCOM_REQUEST")]
-    public partial class MscMcomRequest : SWDbObject
+    [SWTable("OC_MSC", "MSC_MCOM_TRANSACTION")]
+    public partial class MscMcomTransaction : SWDbObject
     {
         #region Properties
         [SWColumn("GUID", ColumnType.GUID)]
@@ -20,20 +20,20 @@ namespace Clearing.Msc.Business.MasterCom.DbObjects
         [SWColumn("LASTUPDATED", ColumnType.LASTUPDATED)]
         public long lastUpdated { get; set; }
 
-        [SWColumn("REF_KEY")]
-        public long RefKey { get; set; }
+        [SWColumn("CLR_REF_KEY")]
+        public long ClrRefKey { get; set; }
 
-        [SWColumn("URL")]
-        public string Url { get; set; }
+        [SWColumn("AUTH_REF_KEY")]
+        public long AuthRefKey { get; set; }
 
-        [SWColumn("REQUEST")]
-        public string Request { get; set; }
+        [SWColumn("CLEARING_TRANSACTION_ID")]
+        public string ClearingTransactionId { get; set; }
 
-        [SWColumn("RESPONSE")]
-        public string Response { get; set; }
+        [SWColumn("AUTHENTICATION_TRANSACTION_ID")]
+        public string AuthenticationTransactionId { get; set; }
 
-        [SWColumn("HTTP_STATUS")]
-        public int HttpStatus { get; set; }
+        [SWColumn("CLAIM_ID")]
+        public string ClaimId { get; set; }
 
         #endregion
     }

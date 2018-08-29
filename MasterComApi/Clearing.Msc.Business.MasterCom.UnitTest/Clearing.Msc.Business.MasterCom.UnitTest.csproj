@@ -40,6 +40,10 @@
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Framework, Version=8.1.0.58, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExtLibs\Framework.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.7.145.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.145\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -68,6 +72,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Business\ProcessPoolTests.cs" />
+    <Compile Include="Business\Tqr4LoadDataTests.cs" />
     <Compile Include="Extension\ObjectExtension.cs" />
     <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="Model\CaseFilingTests.cs" />
@@ -85,6 +91,7 @@
     <Compile Include="Tqr4\Tqr4FileParserTests.cs" />
     <Compile Include="Utility\ApiControllerTests.cs" />
     <Compile Include="Utility\LineFieldParserTests.cs" />
+    <Compile Include="Utility\RestyClientTests.cs" />
     <Compile Include="Utility\UtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +103,7 @@
       <Name>Clearing.Msc.Business.MasterCom</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

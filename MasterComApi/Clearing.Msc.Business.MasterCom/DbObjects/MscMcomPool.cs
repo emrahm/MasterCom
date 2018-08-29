@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Smartway.Ocean.Framework.Pom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,35 +7,50 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.DbObjects
 {
-    public class MscMcomPool
-    { 
-        public Int64 Guid { get; set; }
-        public Int16 Status { get; set; }
-        public Int64 LastUpdated { get; set; }
+    [SWTable("OC_MSC", "MSC_MCOM_POOL")]
+    public partial class MscMcomPool : SWDbObject
+    {
+        #region Properties
+        [SWColumn("GUID", ColumnType.GUID)]
+        public long guid { get; set; }
+
+        [SWColumn("STATUS", ColumnType.STATUS)]
+        public short status { get; set; }
+
+        [SWColumn("LASTUPDATED", ColumnType.LASTUPDATED)]
+        public long lastUpdated { get; set; }
+
         /// <summary>
         /// CB: Chargeback Create
         /// 
         /// </summary>
-        public String ActionType { get; set; }
+        [SWColumn("ACTION_TYPE")]
+        public string ActionType { get; set; }
+
         /// <summary>
         /// system clearing no
         /// </summary>
-        public Int64 ClearingRefKey { get; set; }
-        /// <summary>
-        /// Prov Guid
-        /// </summary>
-        public Int64 ProvisionRefKey { get; set; }
+        [SWColumn("CLEARING_REF_KEY")]
+        public long ClearingRefKey { get; set; }
+
+        [SWColumn("PROVISION_REF_KEY")]
+        public long ProvisionRefKey { get; set; }
+
         /// <summary>
         /// S:Start R: Running C: Complete, E: Error.
         /// </summary>
-        public String ProcessStatus { get; set; }
-        /// <summary>
-        /// ProcessDescription 
-        /// </summary>
-        public String ProcessDescription { get; set; }
+        [SWColumn("PROCESS_STATUS")]
+        public string ProcessStatus { get; set; }
+
+        [SWColumn("PROCESS_DESCRIPTION")]
+        public string ProcessDescription { get; set; }
+
         /// <summary>
         /// Chargeback Id, Document Request Id
         /// </summary>
-        public String McomRefNo { get; set; }
-    }
+        [SWColumn("MCOM_REF_NO")]
+        public string McomRefNo { get; set; }
+
+        #endregion
+    }  
 }

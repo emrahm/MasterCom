@@ -56,7 +56,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
         {
             //arrange  9
             chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, chargebackFillRequest)).Returns(chargebackId);
-            transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns(new MscMcomTransactionId
+            transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns(new MscMcomTransaction
             {
                 ClearingTransactionId = clearingTransactionId,
                 ClaimId = claimId
@@ -78,7 +78,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
         public void Create_NotTakenClaim_GetChargebackIdInMcomRefNo()
         {
             //arrange  9
-            var mscMcomTransactionId = new MscMcomTransactionId
+            var mscMcomTransactionId = new MscMcomTransaction
             {
                 ClearingTransactionId = clearingTransactionId
             };
@@ -126,7 +126,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
                     }
                 }
             };
-            transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns((MscMcomTransactionId)null);
+            transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns((MscMcomTransaction)null);
             transactionData.Setup(f => f.GetPresentmentData(mscMcomPool)).Returns(mscTransactionData);
             transactionData.Setup(f => f.GetClaim(It.IsAny<String>())).Returns((MscMcomClaim)null);
             transactions.Setup(f => f.Search(It.IsAny<long>(), It.IsAny<TransactionSearchRequest>())).Returns(transactionSearchResponse);
@@ -140,7 +140,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
 
             transactionData.Verify(f => f.GetTransactionId(It.IsAny<long>()));
             transactionData.Verify(f => f.GetPresentmentData(mscMcomPool));
-            transactionData.Verify(f => f.CreateTransactionId(It.IsAny<MscMcomTransactionId>()));
+            transactionData.Verify(f => f.CreateTransactionId(It.IsAny<MscMcomTransaction>()));
         }
     }
 }

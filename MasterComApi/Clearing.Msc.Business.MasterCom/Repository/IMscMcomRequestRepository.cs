@@ -10,6 +10,5 @@ namespace Clearing.Msc.Business.MasterCom.Repository
     public interface IMscMcomRequestRepository
     {
         Int64 Create(MscMcomRequest mscMcomRequest);
-        void Update(Int64 guid, MscMcomRequest mscMcomRequest);
     }
 }

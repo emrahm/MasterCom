@@ -30,13 +30,13 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         /// </summary>
         /// <param name="provGuid"></param>
         /// <returns></returns>
-        MscMcomTransactionId GetTransactionId(long provGuid);
+        MscMcomTransaction GetTransactionId(long provGuid);
         /// <summary>
         /// Transaction id sisteme kaydedilir.
         /// </summary>
         /// <param name="mscMcomTransactionId"></param>
         /// <returns></returns>
-        Boolean CreateTransactionId(MscMcomTransactionId mscMcomTransactionId);
+        Boolean CreateTransactionId(MscMcomTransaction mscMcomTransactionId);
         /// <summary>
         /// Sistem mastercard'daki claim yazılır.
         /// </summary>
@@ -58,10 +58,12 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         /// Üretilen son claim id'si update edilir.
         /// </summary>
         /// <param name="mscMcomTransactionId"></param>
-        void UpdateClaimId(MscMcomTransactionId mscMcomTransactionId);
+        void UpdateClaimId(MscMcomTransaction mscMcomTransactionId);
 
         IEnumerable<MscMcomPool> GetPool();
 
-        void UpdatePoolItem(MscMcomPool item);
+        void UpdatePoolItem(MscMcomPool item); 
+
+        void InsertTqr4Data(List<MscMcomTqr4> mscMcomTqr4List);
     }
 }
