@@ -10,6 +10,9 @@ namespace Clearing.Msc.Business.MasterCom.ModelData
     {
         /// <summary>
         /// File name of image. The filename will have an extension of .zip.
+        /// File name of image. The file name must be less than 16 characters in length. 
+        /// It must include alpha and numeric values. The filename will have an extension matching one of the supported formats. 
+        /// File Formats are ZIP, JPG, TIFF, PDF.
         /// </summary>
         public string filename { get; set; }
         /// <summary>

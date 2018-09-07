@@ -29,7 +29,7 @@ namespace Clearing.Msc.Business.MasterCom.DbObjects
         [SWColumn("AUTH_KEY")]
         public long AuthKey { get; set; }
 
-        [SWColumn("CLAIM_ID")]
+        [SWColumn("CLAIM_ID", ColumnType.KEY)]
         public string ClaimId { get; set; }
 
         [SWColumn("CLAIM_STATU")]

@@ -1,4 +1,6 @@
 ﻿using Clearing.Msc.Business.MasterCom.Business;
+using Clearing.Msc.Business.MasterCom.Business.Operation;
+using Clearing.Msc.Business.MasterCom.Business.Process;
 using Clearing.Msc.Business.MasterCom.Repository;
 using Clearing.Msc.Business.MasterCom.Tqr4;
 using Smartway.Ocean.Framework.Operation;
@@ -10,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.Operation
 {
+    /// <summary>
+    /// TQR4 dosyası yuklenir dosya bir dizine bırakılmalı program o dizinden okuyup gunun  belli saatlerinde otomatik çalışacak.
+    /// </summary>
     public class OMcomLoadTqr4File : SWOperation
     {
         public override void DoJob()

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Clearing.Msc.Business.MasterCom.ModelData
 {
-    public class RetrievalResponse
+    public class RetrievalRequestList
     {
-        public String requestId { get; set; }
-        public String status { get; set; }
+        public List<RetrievalRequest> RetrievalRequest { get; set; }
     }
 }

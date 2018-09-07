@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clearing.Msc.Business.MasterCom.Business
+namespace Clearing.Msc.Business.MasterCom.Business.Factory
 {
     public interface IOperation
     {

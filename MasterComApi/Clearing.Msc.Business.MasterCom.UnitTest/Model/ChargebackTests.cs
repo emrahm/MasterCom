@@ -89,7 +89,6 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             Assert.That(result, Is.TypeOf<FileAttachment>());
         }
 
-
         [Test]
         public void Ent_Update()
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Clearing.Msc.Business.MasterCom.Model
 {
-    interface ICaseFiling
+    public interface ICaseFiling
     {
         List<CaseFilingResponse> CaseStatus(long refKey, List<CaseIdRequestResponse> caseIdList);
         CaseIdRequestResponse CreateCase(long refKey, CaseDetailRequest caseDetail);

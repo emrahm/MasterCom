@@ -1,4 +1,5 @@
 ﻿using Clearing.Msc.Business.MasterCom.Business;
+using Clearing.Msc.Business.MasterCom.Business.Process;
 using Clearing.Msc.Business.MasterCom.DbObjects;
 using Clearing.Msc.Business.MasterCom.Repository;
 using Clearing.Msc.Business.MasterCom.Tqr4;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clearing.Msc.Business.MasterCom.UnitTest.Business
+namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Process
 {
     [TestFixture]
     public class Tqr4LoadDataTests

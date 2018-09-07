@@ -49,6 +49,15 @@ namespace Clearing.Msc.Business.MasterCom.Model
         {
             Dictionary<string, String> parameterQuery = new Dictionary<string,string>();
             return _apiController.Get<FileAttachment>(refKey, String.Format("claims/{0}/retrievalrequests/{1}/documents", claimId, requestId), parameterQuery);
-        } 
+        }
+
+
+        public List<RetrievalResponse> RetrievalFullfilmentStatus(long refKey, List<RetrievalRequest> retrievalRequestList)
+        {
+            var result = _apiController.Update<RetrievalResponseList>(refKey, "retrievalrequests/status",
+                                                           null,
+                                                           new RetrievalRequestList() { RetrievalRequest = retrievalRequestList });
+            return result.RetrievalResponse;
+        }
     }
 }

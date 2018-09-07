@@ -8,8 +8,11 @@ using Clearing.Msc.Business.MasterCom.Business;
 using Clearing.Msc.Business.MasterCom.Repository;
 using Moq;
 using Clearing.Msc.Business.MasterCom.DbObjects;
+using Clearing.Msc.Business.MasterCom.Utility;
+using Clearing.Msc.Business.MasterCom.Business.Factory;
+using Clearing.Msc.Business.MasterCom.Business.Process;
 
-namespace Clearing.Msc.Business.MasterCom.UnitTest.Business
+namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Process
 {
     [TestFixture]
     public class ProcessPoolTests
@@ -22,7 +25,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Business
         [SetUp]
         public void SetUp()
         {
-            mscMcomPool.ActionType = "CB";
+            mscMcomPool.ActionType = ApiConstants.Chargeback;
             iTransactionRepositoryMock.Setup(f => f.GetPool()).Returns(new List<MscMcomPool>() { mscMcomPool });
             iOperationFactoryMock.Setup(f => f.GetOperation(mscMcomPool.ActionType)).Returns(iOperaionMock.Object);
         }

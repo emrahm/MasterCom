@@ -72,8 +72,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Business\ProcessPoolTests.cs" />
-    <Compile Include="Business\Tqr4LoadDataTests.cs" />
+    <Compile Include="Business\Operation\CreateQueuesTests.cs" />
+    <Compile Include="Business\Process\ProcessPoolTests.cs" />
+    <Compile Include="Business\Process\Tqr4LoadDataTests.cs" />
     <Compile Include="Extension\ObjectExtension.cs" />
     <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="Model\CaseFilingTests.cs" />
@@ -84,7 +85,8 @@
     <Compile Include="Model\QueuesTests.cs" />
     <Compile Include="Model\RetrievalsTests.cs" />
     <Compile Include="Model\TransactionsTests.cs" />
-    <Compile Include="Operation\CreateChargebackTests.cs" />
+    <Compile Include="Business\Operation\ChargebackReversalTests,.cs" />
+    <Compile Include="Business\Operation\CreateChargebackTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\OAuthAuthenticationTests.cs" />
     <Compile Include="Security\OAuthParametersTests.cs" />

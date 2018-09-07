@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Clearing.Msc.Business.MasterCom.Model
 {
-    interface IQueues
+    public interface IQueues
     {
         List<ResponseQueue> GetQueues(long refKey, string queueName);
     }

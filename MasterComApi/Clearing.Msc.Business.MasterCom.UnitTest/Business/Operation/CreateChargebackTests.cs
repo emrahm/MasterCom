@@ -1,4 +1,5 @@
 ﻿using Clearing.Msc.Business.MasterCom.Business;
+using Clearing.Msc.Business.MasterCom.Business.Operation;
 using Clearing.Msc.Business.MasterCom.DbObjects;
 using Clearing.Msc.Business.MasterCom.Model;
 using Clearing.Msc.Business.MasterCom.ModelData;
@@ -12,13 +13,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
+namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Operation
 {
     [TestFixture]
     public class CreateChargebackTests
     {
-        CreateChargeback createChargeback = null;
-        ChargebackFillRequest chargebackFillRequest = null;
+        CreateIssuerChargeback createChargeback = null;
         Mock<ITransactionRepository> transactionData = new Mock<ITransactionRepository>();
         Mock<IChargebacks> chargebacks = new Mock<IChargebacks>();
         Mock<IClaims> claims = new Mock<IClaims>();
@@ -30,7 +30,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
         [SetUp]
         public void SetUp()
         {
-            createChargeback = new CreateChargeback(transactionData.Object,
+            createChargeback = new CreateIssuerChargeback(transactionData.Object,
                                                     transactions.Object,
                                                     claims.Object,
                                                     chargebacks.Object);
@@ -40,13 +40,12 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
             mscMcomPool.ProvisionRefKey = 2;
             mscMcomPool.McomRefNo = null;
 
-            chargebackFillRequest = new ChargebackFillRequest
+            var mscTransactionData = new MscTransaction
             {
-                amount = "10",
-                currency = "840"
+                F002 = "1234567890123456"
             };
 
-            transactionData.Setup(f => f.GetChargebackData(mscMcomPool.ClearingRefKey)).Returns(chargebackFillRequest);
+            transactionData.Setup(f => f.GetIssuerData(mscMcomPool)).Returns(mscTransactionData);
 
 
         }
@@ -55,7 +54,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
         public void Create_TakenTransactionAndClaimBefore_GetChargebackIdInMcomRefNo()
         {
             //arrange  9
-            chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, chargebackFillRequest)).Returns(chargebackId);
+            chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, It.IsAny<ChargebackFillRequest>())).Returns(chargebackId);
             transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns(new MscMcomTransaction
             {
                 ClearingTransactionId = clearingTransactionId,
@@ -71,7 +70,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
             //assert
             Assert.That(mscMcomPool.McomRefNo, Is.Not.Null);
             Assert.That(mscMcomPool.McomRefNo, Is.EqualTo(chargebackId));
-            transactionData.Verify(f => f.GetChargebackData(mscMcomPool.ClearingRefKey));
+            transactionData.Verify(f => f.GetIssuerData(mscMcomPool));
         }
 
         [Test]
@@ -83,7 +82,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
                 ClearingTransactionId = clearingTransactionId
             };
 
-            chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, chargebackFillRequest)).Returns(chargebackId);
+            chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, It.IsAny<ChargebackFillRequest>())).Returns(chargebackId);
             transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns(mscMcomTransactionId);
             transactionData.Setup(f => f.GetClaim(mscMcomTransactionId.ClaimId)).Returns((MscMcomClaim)null);
             claims.Setup(f => f.CreateClaim(It.IsAny<long>(), It.IsAny<ClaimRequest>())).Returns(claimId);
@@ -93,7 +92,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
             Assert.That(mscMcomPool.McomRefNo, Is.Not.Null);
             Assert.That(mscMcomPool.McomRefNo, Is.EqualTo(chargebackId));
             Assert.That(mscMcomTransactionId.ClaimId, Is.EqualTo(claimId));
-            transactionData.Verify(f => f.GetChargebackData(mscMcomPool.ClearingRefKey));
+            transactionData.Verify(f => f.GetIssuerData(mscMcomPool));
             transactionData.Verify(f => f.GetClaim(mscMcomTransactionId.ClaimId), Times.Never(), "MscMcomTransactionId claim id null ise GetClaim fonksiyonu cagırılmayacak.");
             transactionData.Verify(f => f.CreateClaim(It.IsAny<MscMcomClaim>()));
             transactionData.Verify(f => f.UpdateClaimId(mscMcomTransactionId));
@@ -103,11 +102,10 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
         public void Create_NoTransactionNoClaimSavedBefore_GetChargebackIdInMcomRefNo()
         {
             //arrange  9  
-            var mscTransactionData = new MscTransactionData
+            var mscTransactionData = new MscTransaction
             {
-                Arn = "12345678901234567890123",
-                CardNo = "1234567890123456",
-                TxnDate = DateTime.Now
+                F002 = "1234567890123456",
+                F012_s1 = "180904"
             };
             var transactionSearchResponse = new TransactionSearchResponse
             {
@@ -127,10 +125,10 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
                 }
             };
             transactionData.Setup(f => f.GetTransactionId(mscMcomPool.ProvisionRefKey)).Returns((MscMcomTransaction)null);
-            transactionData.Setup(f => f.GetPresentmentData(mscMcomPool)).Returns(mscTransactionData);
+            transactionData.Setup(f => f.GetIssuerData(mscMcomPool)).Returns(mscTransactionData);
             transactionData.Setup(f => f.GetClaim(It.IsAny<String>())).Returns((MscMcomClaim)null);
             transactions.Setup(f => f.Search(It.IsAny<long>(), It.IsAny<TransactionSearchRequest>())).Returns(transactionSearchResponse);
-            chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, chargebackFillRequest)).Returns(chargebackId);
+            chargebacks.Setup(f => f.Create(It.IsAny<long>(), claimId, It.IsAny<ChargebackFillRequest>())).Returns(chargebackId);
             claims.Setup(f => f.CreateClaim(It.IsAny<long>(), It.IsAny<ClaimRequest>())).Returns(claimId);
             //act
             createChargeback.Create(mscMcomPool);
@@ -139,7 +137,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Operation
             Assert.That(mscMcomPool.McomRefNo, Is.EqualTo(chargebackId));
 
             transactionData.Verify(f => f.GetTransactionId(It.IsAny<long>()));
-            transactionData.Verify(f => f.GetPresentmentData(mscMcomPool));
+            transactionData.Verify(f => f.GetIssuerData(mscMcomPool));
             transactionData.Verify(f => f.CreateTransactionId(It.IsAny<MscMcomTransaction>()));
         }
     }
