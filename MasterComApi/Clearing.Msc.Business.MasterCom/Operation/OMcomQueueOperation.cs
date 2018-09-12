@@ -25,15 +25,13 @@ namespace Clearing.Msc.Business.MasterCom.Operation
 
         private void ProcessStatuUpdate()
         {
-            ProcessResponseStatus updateReponseStatus = new ProcessResponseStatus(new TransactionRepository(),
-                                                                                   new OperationFactory());
+            ProcessResponseStatus updateReponseStatus = new ProcessResponseStatus(new OperationFactory());
             updateReponseStatus.Start();
         }
 
         private void StartQueue()
         {
-            ProcessQueue processQueue = new ProcessQueue(new TransactionRepository(),
-                                                      new OperationFactory());
+            ProcessQueue processQueue = new ProcessQueue(new OperationFactory());
             processQueue.Start();
         }
 

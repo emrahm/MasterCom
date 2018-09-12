@@ -15,10 +15,8 @@ namespace Clearing.Msc.Business.MasterCom.Utility
             public const String Queues = "QUE";
             public const String ChargebackDocument = "CBDOC";
             public const String ResponseStatusUpdate = "RSU";
-
-            public static string CaseFilling { get; set; }
-
-            public static string Retrieval { get; set; }
+            public const string CaseFilling = "CFLL";
+            public const string Retrieval = "RRVL";
         }
 
         public class ChargebackStatus

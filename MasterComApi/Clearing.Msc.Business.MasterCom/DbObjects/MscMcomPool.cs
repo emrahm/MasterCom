@@ -75,6 +75,9 @@ namespace Clearing.Msc.Business.MasterCom.DbObjects
         /// </summary>
         [SWColumn("RESPONSE_STATUS_DATETIME")]
         public DateTime ResponseStatusDatetime { get; set; }
+
+        [SWColumn("IS_ASYNCHRONOUS")]
+        public Boolean IsAsynchronous { get; set; }
         #endregion
     }
 }

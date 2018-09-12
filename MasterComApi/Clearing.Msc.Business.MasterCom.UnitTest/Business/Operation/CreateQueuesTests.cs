@@ -27,7 +27,13 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Operation
         }
 
         [Test]
-        public void Create_RetrieveQueue_FillInsert()
+        [TestCase("USD")]
+        [TestCase("GEO")]
+        [TestCase("EUR")]
+        [TestCase("GBP")]
+        [TestCase("TUR")]
+        [TestCase("XXX")]
+        public void Create_RetrieveQueue_FillInsert(string currencyCode)
         {
             //arrange 
             List<ResponseQueue> responseQueueList = new List<ResponseQueue>();
@@ -52,7 +58,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Operation
                 merchantId = "0024038000200",
                 progressState = "CB1-4807-O-A-NEW",
                 claimType = "Standard",
-                claimValue = "25.00 USD"
+                claimValue = "25.00 " + currencyCode
             });
             iQueuesMock.Setup(f => f.GetQueues(It.IsAny<long>(), It.IsAny<String>())).Returns(responseQueueList);
             iTransactionRepositoryMock.Setup(f => f.GetQueueData(It.IsAny<MscMcomQueue>())).Returns((MscMcomQueue)null);

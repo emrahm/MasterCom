@@ -97,6 +97,7 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         {
             SWDbObjectQuery query = new SWDbObjectQuery();
             query.AddSearchCriteria("ProcessStatus", "S");
+            query.AddSearchCriteria("IsAsynchronous", true);
             return new MscMcomPool().find<MscMcomPool>(query);
         }
 
@@ -131,18 +132,20 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         public void CreateQueueData(List<MscMcomQueue> mscMcomQueueList)
         {
             throw new NotImplementedException();
-        }
-
-
-
-
+        } 
 
         public void UpdatePoolData(List<MscMcomPool> updateStatuList)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<MscMcomPool> GetPoolPendingStatu()
+        public List<MscMcomPool> GetPoolPendingStatu()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void CreatePoolItem(MscMcomPool mscMcomPool)
         {
             throw new NotImplementedException();
         }

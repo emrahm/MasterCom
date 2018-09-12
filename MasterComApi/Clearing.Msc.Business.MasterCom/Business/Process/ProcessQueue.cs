@@ -13,13 +13,10 @@ namespace Clearing.Msc.Business.MasterCom.Business.Process
 {
     public class ProcessQueue
     {
-        ITransactionRepository _iTransactionRepository;
         IOperationFactory _iOperationFactory;
 
-        public ProcessQueue(ITransactionRepository iTransactionRepository,
-                            IOperationFactory iOperationFactory)
+        public ProcessQueue(IOperationFactory iOperationFactory)
         {
-            _iTransactionRepository = iTransactionRepository;
             _iOperationFactory = iOperationFactory;
         }
 

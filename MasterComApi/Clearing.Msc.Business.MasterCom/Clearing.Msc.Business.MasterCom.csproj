@@ -116,6 +116,7 @@
     <Compile Include="Model\TransactionSearchRequest.cs" />
     <Compile Include="Model\TransactionSearchResponse.cs" />
     <Compile Include="Business\Process\ProcessPool.cs" />
+    <Compile Include="Operation\OMComCreateServiceRequest.cs" />
     <Compile Include="Operation\OMcomLoadTqr4File.cs" />
     <Compile Include="Operation\OMcomQueueOperation.cs" />
     <Compile Include="Repository\TransactionRepository.cs" />

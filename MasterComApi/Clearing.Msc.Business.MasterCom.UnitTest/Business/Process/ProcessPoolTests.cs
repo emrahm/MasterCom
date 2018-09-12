@@ -25,7 +25,7 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Process
         [SetUp]
         public void SetUp()
         {
-            mscMcomPool.ActionType = ApiConstants.Chargeback;
+            mscMcomPool.ActionType = ApiConstants.PoolActionType.Chargeback;
             iTransactionRepositoryMock.Setup(f => f.GetPool()).Returns(new List<MscMcomPool>() { mscMcomPool });
             iOperationFactoryMock.Setup(f => f.GetOperation(mscMcomPool.ActionType)).Returns(iOperaionMock.Object);
         }

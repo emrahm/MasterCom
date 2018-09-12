@@ -44,8 +44,8 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Operation
             var mscMcomClaim = new MscMcomClaim() { ClaimId = claimId };
             var cbRevMscMcomPool = new MscMcomPool();
             transactionData.Setup(f => f.GetIssuerData(mscMcomPool)).Returns(mscTransactionData);
-            transactionData.Setup(f => f.GetMscMcomPoolClearingNo(mscTransactionData.PrevClearingNo, ApiConstants.Chargeback)).Returns(cbRevMscMcomPool);
-            transactionData.Setup(f => f.GetClaim(mscTransactionData)).Returns(mscMcomClaim);
+            transactionData.Setup(f => f.GetMscMcomPoolClearingNo(mscTransactionData.PrevClearingNo, ApiConstants.PoolActionType.Chargeback)).Returns(cbRevMscMcomPool);
+            transactionData.Setup(f => f.GetClaim(mscTransactionData.ProvGuid)).Returns(mscMcomClaim);
             chargebacks.Setup(f => f.CreateReversal(It.IsAny<long>(), It.IsAny<ChargebackRequest>())).Returns(chargebackId);
             //act
             createChargebackReversal.Create(mscMcomPool);

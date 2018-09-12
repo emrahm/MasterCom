@@ -17,7 +17,7 @@ namespace Clearing.Msc.Business.MasterCom.Operation
     /// otomatik olarak devamlı çalıştırılacak.
     /// Process devamlı bitince çalıştırılacak.
     /// </summary>
-    public class OMcomOperation : SWOperation
+    public class OMcomOperation : SWOperation, ISWIndepenentOperation
     {
         public override void DoJob()
         { 
@@ -26,6 +26,16 @@ namespace Clearing.Msc.Business.MasterCom.Operation
             processPool.Start();
             
             Thread.Sleep(1000);
+        }
+        
+        public Dictionary<string, object> GetOutputParameters()
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            return result;
+        }
+
+        public void SetInputParameters(Dictionary<string, object> Parameters)
+        {
         }
     }
 }

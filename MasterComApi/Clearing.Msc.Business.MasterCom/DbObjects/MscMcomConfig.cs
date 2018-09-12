@@ -55,6 +55,12 @@ namespace Clearing.Msc.Business.MasterCom.DbObjects
         [SWColumn("UPDATE_DATE_TIME", ColumnType.UPDATE_DATE_TIME)]
         public DateTime UpdateDateTime { get; set; }
 
+        [SWColumn("IS_SYNCHRONIZED")]
+        public Boolean IsSynchronized { get; set; }
+
+        [SWColumn("IS_BATCH_SYNCHRONIZED")]
+        public Boolean IsBatchSynchronized { get; set; }
+
         #endregion
     }
 

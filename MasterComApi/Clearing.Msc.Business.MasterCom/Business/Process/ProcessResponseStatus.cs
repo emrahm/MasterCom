@@ -1,6 +1,8 @@
 ﻿using Clearing.Msc.Business.MasterCom.Business.Factory;
 using Clearing.Msc.Business.MasterCom.Business.Operation;
+using Clearing.Msc.Business.MasterCom.DbObjects;
 using Clearing.Msc.Business.MasterCom.Repository;
+using Clearing.Msc.Business.MasterCom.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +13,20 @@ namespace Clearing.Msc.Business.MasterCom.Business.Process
 {
     public class ProcessResponseStatus
     {
-        ITransactionRepository _iTransactionRepository;
         IOperationFactory _iOperationFactory;
 
-        public ProcessResponseStatus(ITransactionRepository iTransactionRepository,
-                            IOperationFactory iOperationFactory)
+        public ProcessResponseStatus(IOperationFactory iOperationFactory)
         {
-            _iTransactionRepository = iTransactionRepository;
             _iOperationFactory = iOperationFactory;
         }
 
         public void Start()
         {
-            ProcessResponseStatus updateReponseStatus = new ProcessResponseStatus(new TransactionRepository(),
-                                                                                  new OperationFactory());
-            updateReponseStatus.Start();
+            MscMcomPool mscMcomPool = new MscMcomPool();
+            mscMcomPool.ClearingRefKey = 0;
+            mscMcomPool.ActionType = ApiConstants.PoolActionType.ResponseStatusUpdate;
+            IOperation operation = _iOperationFactory.GetOperation(mscMcomPool.ActionType);
+            operation.Create(mscMcomPool);
         }
     }
 }

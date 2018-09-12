@@ -106,5 +106,30 @@ namespace Clearing.Msc.Business.MasterCom.EntegrationTest.Model
             //assert
             Assert.That(result, Is.TypeOf<FileAttachment>());
         }
+
+        [Test]
+        public void GetDocument_Status_ReturnStatu()
+        {  
+           //arrange
+            String requestId = "1234123456";
+            List<RetrievalRequest> retrievalRequestList = new List<RetrievalRequest>();
+            retrievalRequestList.Add(new RetrievalRequest() { claimId = "12344",  requestId = requestId });
+
+            apiController.Setup(f => f.Update<RetrievalResponseList>(It.IsAny<long>(), It.IsAny<String>(), null, It.IsAny<RetrievalRequestList>()))
+            .Returns(new RetrievalResponseList()
+            { 
+                RetrievalResponse = new List<RetrievalResponse>
+                {
+                    new RetrievalResponse() { requestId = requestId, status= "COMPLETED" }
+                }
+            });
+
+            //act
+            Retrievals retrievals = new Retrievals(apiController.Object);
+            var result = retrievals.RetrievalFullfilmentStatus(0, retrievalRequestList);
+            //assert
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].status, Is.EqualTo("COMPLETED"));
+        }
     }
 }

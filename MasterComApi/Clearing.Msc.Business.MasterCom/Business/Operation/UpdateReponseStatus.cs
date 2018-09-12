@@ -38,9 +38,6 @@ namespace Clearing.Msc.Business.MasterCom.Business.Operation
             var pendingStatuList = _iTransactionData.GetPoolPendingStatu().GroupBy(f => f.ActionType).Select(item => item.ToArray()).ToList();
             foreach (var pendingStatuRecords in pendingStatuList)
             {
-                if (pendingStatuRecords.Count() == 0)
-                    continue;
-
                 updateStatuQuery.Clear();
 
                 String actionType = pendingStatuRecords.Max(l => l.ActionType);
@@ -57,9 +54,8 @@ namespace Clearing.Msc.Business.MasterCom.Business.Operation
         {
             List<RetrievalRequest> retrievalRequest = new List<RetrievalRequest>();
             foreach (var item in pendingStatuRecords)
-            {
-                MscMcomClaim claim = _iTransactionData.GetClaim(item.ProvisionRefKey);
-                retrievalRequest.Add(new RetrievalRequest() { claimId = claim.ClaimId, requestId = item.McomRefNo });
+            { 
+                retrievalRequest.Add(new RetrievalRequest() { claimId = item.ClaimId, requestId = item.McomRefNo });
                 updateStatuQuery.Add(item.McomRefNo, item);
             }
 
@@ -92,9 +88,8 @@ namespace Clearing.Msc.Business.MasterCom.Business.Operation
         {
             List<ChargebackRequest> chargebackRequest = new List<ChargebackRequest>();
             foreach (var item in pendingStatuRecords)
-            {
-                MscMcomClaim claim = _iTransactionData.GetClaim(item.ProvisionRefKey);
-                chargebackRequest.Add(new ChargebackRequest() { claimId = claim.ClaimId, chargebackId = item.McomRefNo });
+            { 
+                chargebackRequest.Add(new ChargebackRequest() { claimId = item.ClaimId, chargebackId = item.McomRefNo });
                 updateStatuQuery.Add(item.McomRefNo, item);
             }
 

@@ -15,7 +15,7 @@ namespace Clearing.Msc.Business.MasterCom.Operation
     /// <summary>
     /// TQR4 dosyası yuklenir dosya bir dizine bırakılmalı program o dizinden okuyup gunun  belli saatlerinde otomatik çalışacak.
     /// </summary>
-    public class OMcomLoadTqr4File : SWOperation
+    public class OMcomLoadTqr4File : SWOperation, ISWIndepenentOperation
     {
         public override void DoJob()
         {
@@ -23,6 +23,16 @@ namespace Clearing.Msc.Business.MasterCom.Operation
             Tqr4LoadData tqr4LoadData = new Tqr4LoadData(new Tqr4FileParser(new Tqr4FileReader(fileName)),
                                                          new TransactionRepository());
             tqr4LoadData.LoadData();
+        }
+
+        public Dictionary<string, object> GetOutputParameters()
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            return result;
+        }
+
+        public void SetInputParameters(Dictionary<string, object> Parameters)
+        {
         }
     }
 }

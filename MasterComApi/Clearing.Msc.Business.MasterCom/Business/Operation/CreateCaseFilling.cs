@@ -27,6 +27,7 @@ namespace Clearing.Msc.Business.MasterCom.Business.Operation
         public void Create(MscMcomPool mscMcomPool)
         {
             CaseDetailRequest  caseDetailRequest = new CaseDetailRequest();
+            
             _iClaims.CreateCase(mscMcomPool.ClearingRefKey, caseDetailRequest);
         }
     }

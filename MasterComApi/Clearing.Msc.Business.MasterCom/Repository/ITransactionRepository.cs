@@ -69,6 +69,11 @@ namespace Clearing.Msc.Business.MasterCom.Repository
         /// <param name="mscMcomPool"></param>
         void UpdatePoolItem(MscMcomPool mscMcomPool);
         /// <summary>
+        /// Create pool item.
+        /// </summary>
+        /// <param name="mscMcomPool"></param>
+        void CreatePoolItem(MscMcomPool mscMcomPool);
+        /// <summary>
         /// Tqr datası sisteme kadedilir.
         /// </summary>
         /// <param name="mscMcomTqr4List"></param>
@@ -97,6 +102,6 @@ namespace Clearing.Msc.Business.MasterCom.Repository
 
         void UpdatePoolData(List<MscMcomPool> updateStatuList);
 
-        IEnumerable<MscMcomPool> GetPoolPendingStatu();
+        List<MscMcomPool> GetPoolPendingStatu();
     }
 }

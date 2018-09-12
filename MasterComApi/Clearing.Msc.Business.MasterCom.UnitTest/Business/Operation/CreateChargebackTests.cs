@@ -5,6 +5,7 @@ using Clearing.Msc.Business.MasterCom.Model;
 using Clearing.Msc.Business.MasterCom.ModelData;
 using Clearing.Msc.Business.MasterCom.Operation;
 using Clearing.Msc.Business.MasterCom.Repository;
+using Clearing.Msc.Business.MasterCom.Utility;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -65,6 +66,9 @@ namespace Clearing.Msc.Business.MasterCom.UnitTest.Business.Operation
             {
                 ClaimId = claimId
             });
+
+            transactionData.Setup(f => f.GetDocumentInfo(It.IsAny<long>(), ApiConstants.PoolActionType.ChargebackDocument)).Returns(new ClrDocumentInfo());
+
             //act
             createChargeback.Create(mscMcomPool);
             //assert
